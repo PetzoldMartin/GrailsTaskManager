@@ -1,0 +1,16 @@
+10-20 11:39:58 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "BOOKING" nicht gefunden
+Table "BOOKING" not found; SQL statement:
+alter table booking drop constraint FK_otwq9eiy02b61714wcc2b9jc4 if exists [42102-176]
+10-20 11:39:58 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "TASK" nicht gefunden
+Table "TASK" not found; SQL statement:
+alter table task drop constraint FK_bkv1nsvt6ohlxiv2tcf52f1gt if exists [42102-176]
+10-20 11:39:58 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "TASK_TIME_PLANNING" nicht gefunden
+Table "TASK_TIME_PLANNING" not found; SQL statement:
+alter table task_time_planning drop constraint FK_d1h990x6h0fmr4dlv19g1fpr4 if exists [42102-176]
+10-20 11:39:58 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "TASK_TIME_PLANNING" nicht gefunden
+Table "TASK_TIME_PLANNING" not found; SQL statement:
+alter table task_time_planning drop constraint FK_7fmfhdnudksh70rfsjv8ybpsm if exists [42102-176]
