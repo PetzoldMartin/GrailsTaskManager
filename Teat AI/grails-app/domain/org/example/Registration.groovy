@@ -8,10 +8,10 @@ class Registration {
 	Boolean paid
 	
     static constraints = {
-		race()
-		runner()
-		paid()
-		dateCreated()
+		race(nullable: true)
+		runner(nullable: true)
+		paid(nullable: true)
+		dateCreated(nullable: true)
 		lastUpdated (nullable: true)
     }
 	
