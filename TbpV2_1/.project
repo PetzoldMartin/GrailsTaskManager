@@ -26,7 +26,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>T:/workspaces/scripting2014/TbpV2_1/target/work/plugins</location>
+			<location>/home/foxel/git/mod-ui-t-2014-g1/TbpV2_1/target/work/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>
