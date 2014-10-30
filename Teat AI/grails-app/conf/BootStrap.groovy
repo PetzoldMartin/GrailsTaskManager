@@ -3,6 +3,7 @@ import org.example.Registration
 import org.example.Runner
 import org.example.Tag
 import org.example.Task
+import org.example.Customer
 import org.junit.internal.runners.statements.FailOnTimeout;
 import grails.util.GrailsUtil;
 
@@ -18,6 +19,13 @@ class BootStrap {
 		task.addToTags(workTag)
 		task.addToTags(homeTag)
 		task.save(failOnError: true)
+		
+		def Customer = new Customer(
+			firstName: "Heinz",
+			lastName: "peter",
+			
+			gender: "male"  
+			).save(failOnError: true)
 		
 		switch(GrailsUtil.environment){
 			case "development":

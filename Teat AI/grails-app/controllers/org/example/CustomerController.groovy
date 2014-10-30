@@ -5,8 +5,7 @@ package org.example
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
-class CustomerController {
+class CustomerController{
 	static defaultAction = "list"
 
 	static scaffold = Customer
@@ -15,6 +14,14 @@ class CustomerController {
 		def list = Customer.list()
 		[list:list]
 	}
+	
+	def list2() {
+		def list = Customer.list()
+		[list:list]
+	}
+	
+	
+	
     
 	
 }
