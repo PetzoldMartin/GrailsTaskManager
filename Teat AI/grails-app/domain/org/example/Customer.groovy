@@ -1,6 +1,6 @@
 package org.example
 import grails.rest.*
-@Resource(uri='/CustomerRest', formats=['json', 'xml'])
+@Resource(uri='/customers')
 class Customer {
 
 	String firstName, lastName

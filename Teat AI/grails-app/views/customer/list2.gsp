@@ -71,24 +71,7 @@
 
 	<script>
 	
-var customer = angular.module('customer', []);
-customer.controller('customerCtrl',
-	    function ($scope, $http) {
 
-	        $scope.getCustomer = function () {
-	            $http.get('/myApp/book').
-	                success(function (data) {
-	                    console.log("success: " + data);
-	                    $scope.customer = data;
-	                }).error(function (data) {
-	                    console.log("error: " + data);
-	                    $scope.customer = data;
-	                });
-	        };
-
-	        $scope.getCustomer();
-	    }
-	);
 
 
 </script>

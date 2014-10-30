@@ -1,13 +1,12 @@
 <%@ page import="org.example.Customer"%>
 <!DOCTYPE html>
-<html>
+<html >
 <head>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 
 </head>
 
-<body >
 
 	<li><g:link class="list" action="index">
 			<g:message code="show customer" />
@@ -42,52 +41,40 @@
 		</g:each>
 	</table>
 
-
-	<br>
-
-	
-	<script>
-	
-var customer = angular.module('customer', []);
-customer.controller('customerCtrl',
-	    function ($scope, $http) {
-
-	        $scope.getCustomer = function () {
-	            $http.get('/CustomerRest').
-	                success(function (data) {
-	                    console.log("success: " + data);
-	                    $scope.customer = data;
-	                }).error(function (data) {
-	                    console.log("error: " + data);
-	                    $scope.customer = data;
-	                });
-	        };
-
-	        $scope.getCustomer();
-	    }
-	);
-
-
-</script>
-
-	<div>
-		<table class="table table-hover">
-			<tr>
-				<th>Title</th>
-				<th>Author</th>
-			</tr>
-
-			<tr ng-repeat="c in customer">
-				<td>{{c.firstName}}</td>
-				<td>{{c.lastName}}</td>
-				
-			</tr>
-		</table>
-	</div>
-
-
+<!-- Anything inside here should use the $scope of CustomerController -->
+<body ng-app  ng-controller="CustomerController">
+ 
+    <!-- When this form is submitted, cancel the action and run CustomerController.addCustomer() -->
+ 
+    <table>
+        <!-- Do this for every Customer in CustomerController.customers -->
+        <tr ng-repeat="customer in customers">
+            <td>
+                <!-- Call complete( id ) for this one when it's clicked -->
+                <input type="checkbox" id="customer.Id"/> 
+                 <span ng-bind="customer.firstName"></span>
+                 <span ng-bind="customer.lastName"></span>
+                 <span ng-bind="customer.gender"></span>
+                
+            </td>
+        </tr>
+    </table>
+ 
 </body>
 
-
+<script>  
+function CustomerController( $scope, $http ) {    
+    // bindable list of customers
+    $scope.customers = []
+    // load all customers, copying to the "customers" list on success
+    $scope.loadCustomers = function() {
+        $http.get("../customer/AjaxList").success( function( data ) {
+            $scope.customers = data
+        })
+    }
+    // when we first stat up, load customers
+    $scope.loadCustomers()
+};
+</script>
 
 </html>

@@ -1,3 +1,4 @@
+import org.example.Book
 import org.example.Race
 import org.example.Registration
 import org.example.Runner
@@ -20,12 +21,21 @@ class BootStrap {
 		task.addToTags(homeTag)
 		task.save(failOnError: true)
 		
+		new Book(title:"The Stand").save()
+		new Book(title:"The Shining").save()
+		
 		def Customer = new Customer(
 			firstName: "Heinz",
 			lastName: "peter",
 			
 			gender: "male"  
 			).save(failOnError: true)
+		def Customer2 = new Customer(
+				firstName: "Heinz2",
+				lastName: "peter2",
+				
+				gender: "male"
+				).save(failOnError: true)
 		
 		switch(GrailsUtil.environment){
 			case "development":
