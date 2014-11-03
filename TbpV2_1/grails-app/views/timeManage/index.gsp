@@ -1,5 +1,4 @@
-<%@page import="org.apache.tools.ant.Task"%>
-<%@ page import="de.fh_zwickau.pti.tbpv2.Task" %>
+<%@page import="de.fh_zwickau.pti.tbpv2.TimeManageController"%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
@@ -20,10 +19,12 @@
   	  </tr>
   	</thead>
   	<tbody>
-  	  <g:each in="${Task.getAll()}" var="mapEntry">
+  	  <g:each in="${tasks}" var="it">
   	    <tr>
-  	  	  <td>${mapEntry.getAt('name')}</td>
-  	  	  <td>${mapEntry.getTimeBudgetPlan()}</td>
+  	  	  <td>${it.getAt('name')}</td>
+  	  	  <td>${it.getTimeBudgetPlan()}</td>
+  	  	  <td>${}</td>
+  	  	  <td>${it.id}</td>
   	  	
   	    </tr>
   	  </g:each>
