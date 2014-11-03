@@ -1,3 +1,4 @@
+<%@page import="de.fh_zwickau.pti.tbpv2.TaskService"%>
 <%@page import="org.apache.tools.ant.Task"%>
 <%@ page import="de.fh_zwickau.pti.tbpv2.Task" %>
 
@@ -11,6 +12,16 @@
 <body>
   <div class="body">
   <h1>Time Manager</h1>
+
+<!-- Current date -->  
+<g:set var="now" value="${new Date()}" />
+${now }
+  
+<!-- g:each in="${myMapNameInGSP}" var="item" -->
+   
+   <p>${myMapNameInGSP}</p>
+<!--  /g:each -->
+  
   <table>
   	<thead> 
   	  <tr>
@@ -20,11 +31,11 @@
   	  </tr>
   	</thead>
   	<tbody>
-  	  <g:each in="${Task.getAll()}" var="mapEntry">
+  	  <g:each in="${myMapNameInGSP.taskInfos}" var="mapEntry">
   	    <tr>
   	  	  <td>${mapEntry.getAt('name')}</td>
-  	  	  <td>${mapEntry.getTimeBudgetPlan()}</td>
-  	  	
+  	  	  <td>${mapEntry.getAt('timeBudgetPlan')}</td>
+  	  	  <td>${mapEntry.getAt('timeBudgetUsed')}</td>
   	    </tr>
   	  </g:each>
   	</tbody>
