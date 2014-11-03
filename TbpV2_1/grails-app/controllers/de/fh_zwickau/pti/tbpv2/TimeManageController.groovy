@@ -4,10 +4,10 @@ class TimeManageController {
 
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
+	TimeManageService timeManageService
 	
     def index() {
-		def tasks=Task.getAll()
-		[tasks: tasks]
+		timeManageService.tasks
 	}
 	
 	
