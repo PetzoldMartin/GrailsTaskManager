@@ -16,11 +16,9 @@ class TimeManageController {
 		
 	}
 	
-	def showBookings(){
-		println timeManageService.getBookingsByTask(Task.findAllById('1'))
+	def showBookings(int id){
+		println timeManageService.getBookingsByTask(Task.findAllById(id))
 	}
 
-	def showBookings() {
-		
-	}
+	
 }

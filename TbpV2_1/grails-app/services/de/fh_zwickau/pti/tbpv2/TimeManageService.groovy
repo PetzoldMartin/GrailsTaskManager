@@ -14,7 +14,13 @@ class TimeManageService {
     }
 	
 	def getBookingsByTask(Task task){
-		def bookings=Booking.findAllByTask(task);
-		[bookings: bookings]
+		if (task instanceof SubTask){
+			def bookings=Booking.findAllByTask(task);
+			[bookings: bookings]
+		}else{
+			def bookings=null
+			[bookings: bookings]
+		}
+		
 	}
 }
