@@ -12,4 +12,9 @@ class TimeManageService {
 		def tasks=Task.getAll()
 		[tasks: tasks]
     }
+	
+	def getBookingsByTask(Task task){
+		def bookings=Booking.findAllByTask(task);
+		[bookings: bookings]
+	}
 }

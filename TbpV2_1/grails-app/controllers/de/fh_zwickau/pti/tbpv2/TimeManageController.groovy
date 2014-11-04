@@ -13,6 +13,11 @@ class TimeManageController {
     def index() {
 		def mymap = taskPlanningService.getTaskInfos()
 		[myMapNameInGSP:mymap]
+		
+	}
+	
+	def showBookings(){
+		println timeManageService.getBookingsByTask(Task.findAllById('1'))
 	}
 
 }
