@@ -15,4 +15,7 @@ class TimeManageController {
 		[myMapNameInGSP:mymap]
 	}
 
+	def showBookings() {
+		
+	}
 }
