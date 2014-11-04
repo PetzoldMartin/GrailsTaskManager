@@ -33,7 +33,7 @@ ${now }
   	<tbody>
   	  <g:each in="${myMapNameInGSP.taskInfos}" var="mapEntry">
   	    <tr>
-  	  	  <td>${mapEntry.getAt('name')}</td>
+  	  	  <td><g:link action="showBookings" id="${mapEntry.getAt('id')}"> ${mapEntry.getAt('name')}</g:link></td>
   	  	  <td>${mapEntry.getAt('timeBudgetPlan')}</td>
   	  	  <td>${mapEntry.getAt('timeBudgetUsed')}</td>
   	    </tr>
