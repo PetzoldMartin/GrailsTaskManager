@@ -19,10 +19,13 @@
 			<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 		</ul>
 	</div>
+		<g:if test="${flash.invalidToken}">
+			<div class="message" role="error">Bitte Seite nicht erneut laden!</div>
+		</g:if>
 	<div class="body">
 		<div id="list-task" class="content scaffold-list" role="main">
 			<h1><g:message code="tbp.tasks.planninglist" default="Task Planungsliste" /></h1>
-			<g:form>
+			<g:form useToken="true">
 				<table>
 					<thead>
 						<tr>

@@ -35,15 +35,16 @@
 		<g:textArea class="taskedit" name="${key}.${index}.description" rows="2" cols="30" value="${taskInfo?.description}" />
 	</td>
 	<td>
-		<g:select name="${key}.${index}.parent" from="${compoundTasks}" optionKey="id" 
+		<g:select name="${key}.${index}.parent" from="${compoundTasks - taskInfo?.subtasks}" optionKey="id" 
 				optionValue="name" value="${taskInfo?.parentId}" 
 				noSelection="${['-1':'Top Level Task']}" />
 	</td>
 	<td>${taskInfo?.timeBudgetUsed}</td>
 	<td>
 		<g:field name="${key}.${index}.timeBudgetPlan" type="number"
-			 min="0" max="100000"
-			 size="6" value=" ${taskInfo?.timeBudgetPlan ? taskInfo?.timeBudgetPlan : 0}" />
+				value="${taskInfo?.timeBudgetPlan ? taskInfo?.timeBudgetPlan : 0}"
+				min="0" max="100000"
+			 	size="6" />
 	</td>
 	<td>
 		<g:field name="${key}.${index}.start" type="text" 

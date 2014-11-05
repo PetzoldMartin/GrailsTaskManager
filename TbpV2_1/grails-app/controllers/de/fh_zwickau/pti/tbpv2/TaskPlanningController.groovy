@@ -26,34 +26,40 @@ class TaskPlanningController {
 
 	@Transactional
 	def updateTasks() {
-		def upd = params.get('in')
-		def updKeys = upd?.keySet()?.grep(~/\d+/)
+ 		println params
+		withForm {
+			def upd = params.get('in')
+			def updKeys = upd?.keySet()?.grep(~/\d+/)
 //		def updKeys = params?.keySet()?.grep(~/in\.\d+/)
-		for(i in updKeys) {
-			def cmd = new EditTaskCmd()
-			def p = upd.get(i)
-			bindData(cmd, p)
-			if(cmd.validate()) {
-				taskPlanningService.updateTask cmd
+			for(i in updKeys) {
+				def cmd = new EditTaskCmd()
+				def p = upd.get(i)
+				bindData(cmd, p)
+				if(cmd.validate()) {
+					taskPlanningService.updateTask cmd
 //				println "edit $cmd"
+				} else {
+//				println "validate failure on $cmd"
+					cmd.errors.allErrors.each {println it}
+				}
 			}
-		}
-		def create = params.get('cr')
-		def createKeys = create?.keySet()?.grep(~/\d+/)
-		for(i in createKeys) {
-			def cmd = new CreateTaskCmd()
-			def p = create.get(i)
-//				println "date: ${p.start ? Date.parse('dd.MM.yyyy', p?.start): 'no date'}"
-			bindData(cmd, p)
-			if(cmd.validate()) {
-				taskPlanningService.createTask cmd
-				println "create $cmd"
-			} else {
+			def create = params.get('cr')
+			def createKeys = create?.keySet()?.grep(~/\d+/)
+			for(i in createKeys) {
+				def cmd = new CreateTaskCmd()
+				def p = create.get(i)
+				bindData(cmd, p)
+				if(cmd.validate()) {
+					taskPlanningService.createTask cmd
+				} else {
 //				println "validate failure on $cmd"
 //				cmd.errors.allErrors.each {println it}
+				}
 			}
-		}
-		forward action: "editTasks"
+			forward action: "editTasks"
+		}//.invalidToken {
+//			render "invalid or duplicate form submission"
+//		}
 	}
 }
 
@@ -67,7 +73,7 @@ class CreateTaskCmd {
 	@BindingFormat('dd.MM.yyyy')
 	Date start
 
-	static constraints = {  
+	static constraints = {
 		name size: 2..12, unique: true
 		description size: 0..2000
 		compound nullable: true
@@ -89,6 +95,9 @@ class EditTaskCmd extends CreateTaskCmd {
 	static constraints = {
 		id min: 1l
 		version min: 0l
+		parent validator: {val, obj->
+			val != obj.id
+		}
 	}
 
 	def hasAttributeChanges(Task task) {
