@@ -9,6 +9,7 @@
   	  		</td>
   	  	  <td>
   	  	  <g:field name="amount" type="number"
+  	  	  		value="0"
 			 min="0" max="100000"
 			 size="6"  />
   	  	  </td>

@@ -1,9 +1,16 @@
 package de.fh_zwickau.pti.tbpv2
 
 import grails.transaction.Transactional;
+import groovy.json.internal.Sys;
+import de.fh_zwickau.pti.tbpv2.Booking
+import de.fh_zwickau.pti.tbpv2.CompoundTask
+import de.fh_zwickau.pti.tbpv2.SubTask
+import de.fh_zwickau.pti.tbpv2.TimePlanning
 
 class TimeManageController {
 
+	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+	
 
 	def taskPlanningService
 
@@ -32,10 +39,23 @@ class TimeManageController {
 	}
 	
 	@Transactional
-	def updateBookings(int test){
-		timeManageService.updateBookings(test)
-		println test
+	def updateBookings(){
+		def booking = 
+		new Booking( amount: params.amount.grep(~/\d+/)
+					, start: Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0]) 
+					,end: Date.parse('dd.MM.yyyy',params.end.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])  )
+		Task.findAllById(params.getAt("taskid"))[0].addToBookings booking
+		booking.save flush: true
+		
+	
+		println Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0]) 
+		println booking.toString()
 		println "testerfolg"
+		
+		//timeManageService.updateBookings(taskid)
+		
+		forward action: "showBookings" ,id: params.getAt("taskid")
+		
 		
 	}
 
