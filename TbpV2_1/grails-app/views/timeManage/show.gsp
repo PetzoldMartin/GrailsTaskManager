@@ -11,25 +11,24 @@
 </head>
 <body>
 	<div class="body">
-		<h1>Time Manager</h1>
+		<h1>Time Manager Treeview</h1>
+		
 
+		<p><b>Fett</b> = CompoundTask</p>
+		<p>Normal = SubTask</p>
+		
+		<p></p>
+		
 		<!-- simple debug view -->
-		<p>
-			${myMapNameInGSP}
-		</p>
+		<!-- <p>${myMapNameInGSP}</p-->
 
 		<table>
 			<thead>
 				<tr>
-					<th>
-						${message(code: 'Task') }
-					</th>
-					<th>
-						${message(code: 'budged') }
-					</th>
-					<th>
-						${message(code: 'gebucht') }
-					</th>
+					<th>${message(code: 'Task')}</th>
+					<th>${message(code: 'Budged')}</th>
+					<th>${message(code: 'Gebucht')}</th>
+					<th>${message(code: 'Start')}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,24 +36,15 @@
 					<tr>
 					
 						<g:if test = "${mapEntry.getAt('compound')}">
-							<td>
-								<g:link action="show" id="${mapEntry.getAt('id')}">
-									${mapEntry.getAt('name')}
-								</g:link>
-							</td>
+							<td><g:link action="show" id="${mapEntry.getAt('id')}"><b>${mapEntry.getAt('name')}</b></g:link></td>
 						</g:if>
 							
 						<g:else>
-							<td>
-								${mapEntry.getAt('name')}
-							</td>
+							<td><g:link action="showBookings" id="${mapEntry.getAt('id')}">${mapEntry.getAt('name')}</g:link></td>
 						</g:else>
-						<td>
-							${mapEntry.getAt('timeBudgetPlan')}
-						</td>
-						<td>
-							${mapEntry.getAt('timeBudgetUsed')}
-						</td>
+							<td>${mapEntry.getAt('timeBudgetPlan')}</td>
+							<td>${mapEntry.getAt('timeBudgetUsed')}</td>
+							<td>${mapEntry.getAt('start')}</td>
 					</tr>
 				</g:each>
 			</tbody>
