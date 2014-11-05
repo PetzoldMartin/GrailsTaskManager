@@ -18,7 +18,14 @@
   	  </tr>
   	</thead>
   	<tbody>
-  	  
+  	   <g:each in="${bookings}" var="mapEntry">
+  	    <tr>
+  	  	  <td>${mapEntry.date}</td>
+  	  	  <td>${mapEntry.amount}</td>
+  	  	  <td>${mapEntry.start}</td>
+  	  	  <td>${mapEntry.end}</td>
+  	    </tr>
+  	  </g:each>
   	</tbody>
   	
   </table>
