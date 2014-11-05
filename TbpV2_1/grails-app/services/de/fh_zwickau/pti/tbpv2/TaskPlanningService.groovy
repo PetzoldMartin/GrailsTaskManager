@@ -13,11 +13,14 @@ class TaskPlanningService {
 		def tasks = taskService.taskTree.tasklist
 		def taskInfos = []
 		def compoundTasks = []
-		for(tle in tasks) {
+		for(def i = 0; i < tasks.size; i++) {
+			def tle = tasks[i]
 			Task task = tle.task
 			def taskInfo = [:]
 			taskInfo.id = task.id
 			taskInfo.version = task.version
+			taskInfo.subtasks = subtasksFromTreeList(tasks, i)
+			println "${taskInfo.id} subtasks: ${taskInfo.subtasks}"
 			if(task.superTask) {
 				taskInfo.parentId = task.superTask.id
 			} else {
@@ -36,6 +39,24 @@ class TaskPlanningService {
 			taskInfos << taskInfo
 		}
 		[taskInfos: taskInfos, compoundTasks: compoundTasks]
+	}
+	
+	private subtasksFromTreeList(List tasklist, int current) {
+		def result = []
+		Task task = tasklist[current].task
+		def currentids = []
+		while(current < tasklist.size()) {
+			if(task instanceof CompoundTask) {
+				result << [id: task.id, name: task.name]
+				currentids << task.id
+			}
+			if(++current == tasklist.size())
+				break
+			task = tasklist[current].task
+			if(! currentids.contains(task?.superTask.id))
+				break
+		}
+		result
 	}
 
 	def updateTask(EditTaskCmd cmd) {

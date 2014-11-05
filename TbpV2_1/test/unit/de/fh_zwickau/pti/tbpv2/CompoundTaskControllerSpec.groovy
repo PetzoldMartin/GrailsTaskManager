@@ -14,7 +14,7 @@ class CompoundTaskControllerSpec extends Specification {
         // TODO: Populate valid properties like...
 		params.id = 42
 		params.name = "compound"
-		params.description = 'description 2'
+//		params.description = 'description 2'
     }
 
     void "Test the index action returns the correct model"() {
