@@ -19,6 +19,16 @@ class TimeManageController {
 	def showBookings(int id){
 		timeManageService.getBookingsByTask(Task.findAllById(id))
 	}
+	
+	/**
+	 * Show the contents of a Task
+	 * @param id Task ID
+	 * @return internal content
+	 */
+	def show(int id) {
+		def mymap = taskPlanningService.getTaskInfos()
+		[myMapNameInGSP:mymap]
+	}
 
 	
 }
