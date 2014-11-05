@@ -16,11 +16,17 @@ class TimeManageService {
 	def getBookingsByTask(Task task){
 		if (task instanceof SubTask){
 			def bookings=Booking.findAllByTask(task);
-			[bookings: bookings]
+			def taskid=task.id
+			[bookings: bookings,taskid: taskid]
 		}else{
 			def bookings=null
-			[bookings: bookings]
+			def taskid=task.id
+			[bookings: bookings,taskid: taskid]
+
 		}
 		
+	}
+	def updateBookings(int test) {
+		println test
 	}
 }

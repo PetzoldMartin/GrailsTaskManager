@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <meta name="layout" content="main"/>
-<title>Insert title here</title>
+<title>Task ${message(code: taskid) }</title>
 </head>
 <body>
   <div >
@@ -20,15 +20,21 @@
   	<tbody>
   	   <g:each in="${bookings}" var="mapEntry">
   	    <tr>
-  	  	  <td>${mapEntry.date}</td>
+  	  	  <td>${mapEntry.date.format('dd.MM.yyyy')}</td>
   	  	  <td>${mapEntry.amount}</td>
-  	  	  <td>${mapEntry.start}</td>
-  	  	  <td>${mapEntry.end}</td>
+  	  	  <td>${mapEntry.start.format('dd.MM.yyyy')}</td>
+  	  	  <td>${mapEntry.end.format('dd.MM.yyyy')}</td>
   	    </tr>
   	  </g:each>
+  	  <tr>
+  	  <g:render template="editBookingsline"/>
+  	  </tr>
   	</tbody>
   	
   </table>
+  <fieldset class="buttons">
+					<g:actionSubmit class="save" action="updateBookings" test="1" value="${message(code: 'default.button.save.label', default: 'Save new Booking')}" />
+	</fieldset>
   </div>
 </body>
 </html>

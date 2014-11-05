@@ -1,11 +1,12 @@
 package de.fh_zwickau.pti.tbpv2
 
+import grails.transaction.Transactional;
+
 class TimeManageController {
 
 
 	def taskPlanningService
 
-	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
 	TimeManageService timeManageService
 
@@ -28,6 +29,14 @@ class TimeManageController {
 	def show(int id) {
 		def mymap = taskPlanningService.getTaskInfos()
 		[myMapNameInGSP:mymap]
+	}
+	
+	@Transactional
+	def updateBookings(int test){
+		timeManageService.updateBookings(test)
+		println test
+		println "testerfolg"
+		
 	}
 
 	
