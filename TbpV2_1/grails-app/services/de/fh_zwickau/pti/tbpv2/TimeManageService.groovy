@@ -1,6 +1,7 @@
 package de.fh_zwickau.pti.tbpv2
 
 import grails.transaction.Transactional
+import grails.validation.Validateable;
 
 @Transactional
 class TimeManageService {
@@ -36,4 +37,6 @@ class TimeManageService {
 		println booking.toString()
 		
 	}
+	
+	
 }

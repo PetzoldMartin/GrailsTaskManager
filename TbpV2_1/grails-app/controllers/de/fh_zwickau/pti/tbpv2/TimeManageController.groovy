@@ -1,11 +1,16 @@
 package de.fh_zwickau.pti.tbpv2
 
+import java.util.Date;
+
 import grails.transaction.Transactional;
+import grails.validation.Validateable;
 import groovy.json.internal.Sys;
 import de.fh_zwickau.pti.tbpv2.Booking
 import de.fh_zwickau.pti.tbpv2.CompoundTask
 import de.fh_zwickau.pti.tbpv2.SubTask
 import de.fh_zwickau.pti.tbpv2.TimePlanning
+import org.grails.databinding.BindUsing;
+import org.grails.databinding.BindingFormat;
 
 class TimeManageController {
 
@@ -13,7 +18,7 @@ class TimeManageController {
 	
 
 	def taskPlanningService
-
+	
 	
 	TimeManageService timeManageService
 
@@ -40,18 +45,40 @@ class TimeManageController {
 	
 	@Transactional
 	def updateBookings(){
+		int amount = 0
+		if(params.amount.grep(~/\d+/)[0]!=null)
+		{amount = params.amount.grep(~/\d+/)[0].toInteger()}
 		
-		def booking =
-		new Booking( amount: params.amount.grep(~/\d+/)
-					, start: Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])
-					,end: Date.parse('dd.MM.yyyy',params.end.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])  )
+		def bookingCMD = 
+		new CreateBookingCmd( amount: amount
+					,start: Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])
+					,end: Date.parse('dd.MM.yyyy',params.end.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])
+					,taskid:params.int("taskid"))
 		
-		timeManageService.updateBookings(booking,params.int("taskid"))
+		println bookingCMD
+		//timeManageService.updateBookings(booking,params.int("taskid"))
 		
 		forward action: "showBookings" ,id: params.getAt("taskid")
 		
 		
 	}
+	
+	@Validateable
+	class CreateBookingCmd {
+		int taskid
+		int amount 
+		Date start
+		Date end	
+	
+	static constraints = {
+		amount min:1
+		start (validator:{val, obj ->obj.end >= val})
+		end max: new Date()
+	}
 
+	def String toString() {
+		"taskid: ${taskid},amount: ${amount},start: ${start},end: ${end}"
+	};
+	}
 	
 }
