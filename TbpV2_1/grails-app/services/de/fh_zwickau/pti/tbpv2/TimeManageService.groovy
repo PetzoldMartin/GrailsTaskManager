@@ -30,10 +30,9 @@ class TimeManageService {
 			
 			)
 		Task.findAllById(createBookingcmd.taskid)[0].addToBookings booking
-		booking.save flush: true}
-		else{
-			println "donk"
-		}
+		
+		booking.save flush: booking.validate()}
+		
 		
 	
 		

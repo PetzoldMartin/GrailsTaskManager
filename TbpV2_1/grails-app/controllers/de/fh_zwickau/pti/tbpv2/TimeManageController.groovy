@@ -55,16 +55,24 @@ class TimeManageController {
 		int amount = 0
 		if(params.amount.grep(~/\d+/)[0]!=null)
 		{amount = params.amount.grep(~/\d+/)[0].toInteger()}
-		
+		int[] arr = Task.findAllById(params.int("taskid"))[0].bookings.amount;
+		int amountSum=0
+		for (i in arr) {
+			amountSum+=i
+		}
 		def bookingCMD = 
 		new CreateBookingCmd( amount: amount
 					,start: Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])
 					,end: Date.parse('dd.MM.yyyy',params.end.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])
-					,taskid:params.int("taskid"))
-		
-		//println bookingCMD
+					,taskid:params.int("taskid")
+					,plannedHours: Task.findAllById(params.int("taskid"))[0].plans.timeBudgetPlan[0]
+					,bookedHours: amountSum + amount
+					)
 		timeManageService.updateBookings(bookingCMD)
 		
+		println bookingCMD
+		println Task.findAllById(bookingCMD.taskid)[0].plans.timeBudgetPlan[0]
+		println amountSum
 		forward action: "showBookings" ,id: params.getAt("taskid")
 		
 		
@@ -73,6 +81,8 @@ class TimeManageController {
 	@Validateable
 	class CreateBookingCmd {
 		int taskid
+		int plannedHours
+		int bookedHours
 		int amount 
 		Date start
 		Date end	
@@ -81,10 +91,11 @@ class TimeManageController {
 		amount min:1
 		start (validator:{val, obj ->obj.end >= val})
 		end max: new Date()
+		bookedHours (validator:{val, obj ->obj.plannedHours >= val})
 	}
 
 	def String toString() {
-		"taskid: ${taskid},amount: ${amount},start: ${start},end: ${end}"
+		"taskid: ${taskid},amount: ${amount},start: ${start},end: ${end},plannedHours: ${plannedHours},bookedHours: ${bookedHours}"
 	};
 	}
 	
