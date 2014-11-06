@@ -30,7 +30,14 @@ class TimeManageController {
 	}
 	
 	def showBookings(int id){
-		timeManageService.getBookingsByTask(Task.findAllById(id))
+		Task task=Task.findAllById(id)[0]
+		if(task instanceof SubTask){
+		timeManageService.getBookingsByTask(task)}
+		else{
+			forward action: "index"
+		}
+		
+		
 	}
 	
 	/**
@@ -55,8 +62,8 @@ class TimeManageController {
 					,end: Date.parse('dd.MM.yyyy',params.end.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])
 					,taskid:params.int("taskid"))
 		
-		println bookingCMD
-		//timeManageService.updateBookings(booking,params.int("taskid"))
+		//println bookingCMD
+		timeManageService.updateBookings(bookingCMD)
 		
 		forward action: "showBookings" ,id: params.getAt("taskid")
 		

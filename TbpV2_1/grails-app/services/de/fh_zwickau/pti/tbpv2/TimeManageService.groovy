@@ -1,5 +1,6 @@
 package de.fh_zwickau.pti.tbpv2
 
+import de.fh_zwickau.pti.tbpv2.TimeManageController.CreateBookingCmd
 import grails.transaction.Transactional
 import grails.validation.Validateable;
 
@@ -15,26 +16,28 @@ class TimeManageService {
     }
 	
 	def getBookingsByTask(Task task){
-		if (task instanceof SubTask){
 			def bookings=Booking.findAllByTask(task);
 			def taskid=task.id
 			[bookings: bookings,taskid: taskid]
-		}else{
-			def bookings=null
-			def taskid=task.id
-			[bookings: bookings,taskid: taskid]
-
-		}
+		
 		
 	}
-	def updateBookings(Booking booking,int taskid) {
-		
-		Task.findAllById(taskid)[0].addToBookings booking
-		booking.save flush: true
+	def updateBookings(CreateBookingCmd createBookingcmd) {
+		if(createBookingcmd.validate()){
+		def booking = new Booking(amount: createBookingcmd.amount,
+			start: createBookingcmd.start,
+			end: createBookingcmd.end
+			
+			)
+		Task.findAllById(createBookingcmd.taskid)[0].addToBookings booking
+		booking.save flush: true}
+		else{
+			println "donk"
+		}
 		
 	
 		
-		println booking.toString()
+		
 		
 	}
 	
