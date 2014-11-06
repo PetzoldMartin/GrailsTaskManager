@@ -26,18 +26,6 @@ class TimeManageController {
     def index() {
 		def mymap = taskPlanningService.getTaskInfos()
 		[myMapNameInGSP:mymap]
-		
-	}
-	
-	def showBookings(int id){
-		Task task=Task.findAllById(id)[0]
-		if(task instanceof SubTask){
-		timeManageService.getBookingsByTask(task)}
-		else{
-			forward action: "index"
-		}
-		
-		
 	}
 	
 	/**
@@ -48,6 +36,15 @@ class TimeManageController {
 	def show(int id) {
 		def mymap = taskPlanningService.getTaskInfos()
 		[myMapNameInGSP:mymap]
+	}
+	
+	def showBookings(int id){
+		Task task=Task.findAllById(id)[0]
+		if(task instanceof SubTask){
+		timeManageService.getBookingsByTask(task)}
+		else{
+			forward action: "index"
+		}
 	}
 	
 	@Transactional
