@@ -26,7 +26,14 @@ class TimeManageService {
 		}
 		
 	}
-	def updateBookings(int test) {
-		println test
+	def updateBookings(Booking booking,int taskid) {
+		
+		Task.findAllById(taskid)[0].addToBookings booking
+		booking.save flush: true
+		
+	
+		
+		println booking.toString()
+		
 	}
 }

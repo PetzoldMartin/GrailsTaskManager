@@ -50,12 +50,12 @@
 
 			</table>
 			<fieldset class="buttons">
+			<g:actionSubmit class="return" action="index"  
+					value="${message(code: 'default.button.return.label', default: 'back to Projekt')}"  
+					/>	
 				<g:actionSubmit class="save" action="updateBookings"  
 					value="${message(code: 'default.button.save.label', default: 'Save new Booking')}"  
-					/>
-					
-				
-					
+					/>	
 			</fieldset>
 
 		</g:form>

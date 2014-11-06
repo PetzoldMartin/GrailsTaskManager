@@ -40,19 +40,13 @@ class TimeManageController {
 	
 	@Transactional
 	def updateBookings(){
-		def booking = 
+		
+		def booking =
 		new Booking( amount: params.amount.grep(~/\d+/)
-					, start: Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0]) 
+					, start: Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])
 					,end: Date.parse('dd.MM.yyyy',params.end.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])  )
-		Task.findAllById(params.getAt("taskid"))[0].addToBookings booking
-		booking.save flush: true
 		
-	
-		println Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0]) 
-		println booking.toString()
-		println "testerfolg"
-		
-		//timeManageService.updateBookings(taskid)
+		timeManageService.updateBookings(booking,params.int("taskid"))
 		
 		forward action: "showBookings" ,id: params.getAt("taskid")
 		
