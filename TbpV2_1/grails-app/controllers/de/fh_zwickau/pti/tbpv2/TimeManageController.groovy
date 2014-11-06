@@ -34,7 +34,7 @@ class TimeManageController {
 	 * @return internal content
 	 */
 	def show(int id) {
-		def mymap = taskPlanningService.getTaskInfos()
+		def mymap = timeManageService.getTask(id)
 		[myMapNameInGSP:mymap]
 	}
 	

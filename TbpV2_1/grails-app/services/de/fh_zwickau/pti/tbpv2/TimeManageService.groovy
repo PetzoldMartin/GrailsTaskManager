@@ -10,9 +10,14 @@ class TimeManageService {
 	TaskService taskService
 	
 	
-    def getTasks() {
-		def tasks=Task.getAll()
-		[tasks: tasks]
+    def getTask(int id) {
+		
+		if (id == 0)
+		 id = 1
+		
+		def task = Task.findAllById(id)
+		
+		[root: task , leafs: task.subtasks]
     }
 	
 	def getBookingsByTask(Task task){

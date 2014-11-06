@@ -20,7 +20,7 @@
 		<p></p>
 		
 		<!-- simple debug view -->
-		<!-- <p>${myMapNameInGSP}</p-->
+		<p>${myMapNameInGSP}</p>
 
 		<table>
 			<thead>
