@@ -11,6 +11,7 @@
 			<table>
 				<thead>
 					<tr>
+						
 						<th>
 							${message(code: 'Booking.date.label', default: 'Bookingdate')}
 						</th>
@@ -22,8 +23,10 @@
 						</th>
 						<th>
 							${message(code: 'Booking.end.label', default: 'Enddate')}
+						</th>	
+						<th>
+							
 						</th>
-
 					</tr>
 				</thead>
 				<tbody>
@@ -41,7 +44,12 @@
 							<td>
 								${mapEntry.end.format('dd.MM.yyyy')}
 							</td>
-						</tr>
+							<th class= "buttons">
+							<g:actionSubmit class="delete" action="delete"  
+								value="${message(code: 'default.button.delete.label', default: 'x')}"  
+							/>
+						</th>
+						</tr>	
 					</g:each>
 					<tr>
 						<g:render template="editBookingsline"/>
