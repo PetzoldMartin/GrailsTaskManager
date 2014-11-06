@@ -12,15 +12,29 @@ class TimeManageService {
 	
     def getTask(int id) {
 		
-		if (id == 0)
-		 id = 1
-		
-		def task = Task.findAllById(id)
-		
-		[root: task , leafs: task.subtasks]
+		if (id == 0) {
+			[root: null , leafs: [getInfo(Task.findAllById(1))]]
+		} else {
+			def task = Task.findAllById(id)
+			[root: task , leafs: getLeafs(task)]
+		}
     }
 	
-	def getBookingsByTask(Task task){
+	def getLeafs(Task task) {
+		def sub = []
+		for (leaf in task.subtasks) {
+			sub << getInfo(leaf)
+		}
+		sub
+	}
+	
+	
+	def getInfo(Task task) {
+		boolean comp = task instanceof CompoundTask
+		[name: task.name, id: task.id, description: task.description, compound: comp]
+	}
+	
+	def getBookingsByTask(Task task) {
 			def bookings=Booking.findAllByTask(task);
 			def taskid=task.id
 			[bookings: bookings,taskid: taskid]

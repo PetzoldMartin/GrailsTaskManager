@@ -35,7 +35,7 @@ class TimeManageController {
 	 */
 	def show(int id) {
 		def mymap = timeManageService.getTask(id)
-		[myMapNameInGSP:mymap]
+		[map:mymap]
 	}
 	
 	def showBookings(int id){

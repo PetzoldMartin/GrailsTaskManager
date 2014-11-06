@@ -20,31 +20,27 @@
 		<p></p>
 		
 		<!-- simple debug view -->
-		<p>${myMapNameInGSP}</p>
+		<p>${map}</p>
 
 		<table>
 			<thead>
 				<tr>
-					<th>${message(code: 'Task')}</th>
-					<th>${message(code: 'Budged')}</th>
-					<th>${message(code: 'Gebucht')}</th>
-					<th>${message(code: 'Start')}</th>
+					<th>${message(code: 'Tasks')}</th>
+					<th>${message(code: 'Description')}</th>
 				</tr>
 			</thead>
 			<tbody>
-				<g:each in="${myMapNameInGSP.taskInfos}" var="mapEntry">
+				<g:each in="${map.leafs}" var="leafEntry">
 					<tr>
 					
-						<g:if test = "${mapEntry.getAt('compound')}">
-							<td><g:link action="show" id="${mapEntry.getAt('id')}"><b>${mapEntry.getAt('name')}</b></g:link></td>
+						<g:if test = "${leafEntry.getAt('compound')}">
+							<td><g:link action="show" id="${leafEntry.getAt('id')}"><b>${leafEntry.getAt('name')}</b></g:link></td>
 						</g:if>
 							
 						<g:else>
-							<td><g:link action="showBookings" id="${mapEntry.getAt('id')}">${mapEntry.getAt('name')}</g:link></td>
+							<td><g:link action="showBookings" id="${leafEntry.getAt('id')}">${leafEntry.getAt('name')}</g:link></td>
 						</g:else>
-							<td>${mapEntry.getAt('timeBudgetPlan')}</td>
-							<td>${mapEntry.getAt('timeBudgetUsed')}</td>
-							<td>${mapEntry.getAt('start')}</td>
+							<td>${leafEntry.getAt('description')}</td>
 					</tr>
 				</g:each>
 			</tbody>
