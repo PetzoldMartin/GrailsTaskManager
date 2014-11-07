@@ -16,14 +16,16 @@ class TimeManageService {
 			[root: null , leafs: [getInfo(Task.findAllById(1))]]
 		} else {
 			def task = Task.findAllById(id)
-			[root: task , leafs: getLeafs(task)]
+			[root: getInfo(task) , leafs: getLeafs(task)]
 		}
 	}
 
 	def getLeafs(Task task) {
 		def sub = []
-		for (leaf in task.subtasks) {
-			sub << getInfo(leaf)
+		if (task instanceof CompoundTask) {
+			for (leaf in task.subtasks) {
+				sub << getInfo(leaf)
+			}
 		}
 		sub
 	}
@@ -31,7 +33,7 @@ class TimeManageService {
 
 	def getInfo(Task task) {
 		boolean comp = task instanceof CompoundTask
-		[name: task.name, id: task.id, description: task.description, compound: comp]
+		[name: task.name, id: task.id, description: task.description, compound: comp, parent: task.superTask]
 	}
 
 	def getBookingsByTask(Task task) {

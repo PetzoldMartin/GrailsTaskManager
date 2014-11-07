@@ -21,6 +21,15 @@
 		
 		<!-- simple debug view -->
 		<p>${map}</p>
+		
+		
+		<g:if test = "${map.root != null}">
+			<h4>${map.root.name}</h4>
+			<p>${map.root.description}</p>
+			<g:if test = "${map.root.parent != null}">
+				<p>Parent Task: ${map.root.parent}</p>
+			</g:if>
+		</g:if>
 
 		<table>
 			<thead>
