@@ -53,8 +53,10 @@ class TaskPlanningService {
 			if(++current == tasklist.size())
 				break
 			task = tasklist[current].task
+			if(task?.superTask==true){
 			if(! currentids.contains(task?.superTask.id))
 				break
+			}
 		}
 		result
 	}
