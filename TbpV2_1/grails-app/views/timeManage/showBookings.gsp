@@ -44,11 +44,7 @@
 								${mapEntry.end.format('dd.MM.yyyy')}
 							</td>
 							<th class= "buttons">
-<<<<<<< HEAD
-							<g:actionSubmit class="delete" action="index"  
-=======
 							<g:actionSubmit class="delete" action="deleteBookings"  
->>>>>>> branch 'master' of https://141.32.44.159/git/mod-ui-t-2014-g1/
 								value="${message(code: 'default.button.delete.label', default: 'x')}"  
 							/>
 						</th>
