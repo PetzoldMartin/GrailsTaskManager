@@ -11,6 +11,7 @@ abstract class Task {
 
 
 	abstract int getTimeBudgetUsed()
+	abstract int getTimeBudgetPlaned()
 
 	def getDiffPlanUse() {
 		getTimeBudgetPlan() - getTimeBudgetUsed()

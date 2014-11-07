@@ -15,6 +15,16 @@ class SubTask extends Task {
 			used
 		}
 	}
+	
+	int getTimeBudgetPlaned() {
+		if(!plans || plans.empty) {
+			0
+		} else {
+			int used = timeBudgetPlan
+			
+			used
+		}
+	}
 
 	@Override
 	def remove() {

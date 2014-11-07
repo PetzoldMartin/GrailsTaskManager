@@ -30,6 +30,8 @@ class TaskPlanningService {
 			taskInfo.description = task.description
 			taskInfo.timeBudgetPlan = task.timeBudgetPlan
 			taskInfo.timeBudgetUsed = task.timeBudgetUsed
+			taskInfo.timeBudgetPlaned = task.timeBudgetPlaned
+			
 			taskInfo.start = task.start
 			taskInfo.compound = task instanceof CompoundTask
 			if(task instanceof CompoundTask) {

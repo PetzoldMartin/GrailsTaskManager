@@ -42,7 +42,7 @@
 	<td>${taskInfo?.timeBudgetUsed}</td>
 	<td>
 		<g:field name="${key}.${index}.timeBudgetPlan" type="number"
-				value="${taskInfo?.timeBudgetPlan ? taskInfo?.timeBudgetPlan : 0}"
+				value="${taskInfo?.timeBudgetPlaned}"
 				min="0" max="100000"
 			 	size="6" />
 	</td>
