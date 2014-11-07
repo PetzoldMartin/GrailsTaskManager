@@ -3,7 +3,7 @@ package de.fh_zwickau.pti.tbpv2
 class SubTask extends Task {
 
 	static hasMany = [bookings : Booking]
-
+	
 	int getTimeBudgetUsed() {
 		if(!bookings || bookings.empty) {
 			0

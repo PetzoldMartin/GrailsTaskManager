@@ -26,7 +26,7 @@ class CompoundTask extends Task {
 		} else {
 			int used = 0
 			for(Task t in subtasks) {
-				used += t.timeBudgetUsed
+				used += t.getTimeBudgetUsed()
 			}
 			return used
 		}
