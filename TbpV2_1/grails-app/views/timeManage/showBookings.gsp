@@ -11,7 +11,6 @@
 			<table>
 				<thead>
 					<tr>
-						
 						<th>
 							${message(code: 'Booking.date.label', default: 'Bookingdate')}
 						</th>
@@ -45,7 +44,7 @@
 								${mapEntry.end.format('dd.MM.yyyy')}
 							</td>
 							<th class= "buttons">
-							<g:actionSubmit class="delete" action="delete"  
+							<g:actionSubmit class="delete" action="deleteBookings"  
 								value="${message(code: 'default.button.delete.label', default: 'x')}"  
 							/>
 						</th>
@@ -65,7 +64,6 @@
 					value="${message(code: 'default.button.save.label', default: 'Save new Booking')}"  
 					/>	
 			</fieldset>
-
 		</g:form>
 	</div>
 

@@ -70,9 +70,13 @@ class TimeManageController {
 		println bookingCMD
 		println Task.findAllById(bookingCMD.taskid)[0].plans.timeBudgetPlan[0]
 		println amountSum
+		forward action: "showBookings" ,id: params.getAt("taskid")		
+	}
+	
+	@Transactional
+	def deleteBookings() {
+		timeManageService.deleteBooking(1);
 		forward action: "showBookings" ,id: params.getAt("taskid")
-		
-		
 	}
 	
 	@Validateable
