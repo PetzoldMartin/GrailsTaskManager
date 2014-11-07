@@ -16,6 +16,8 @@ class TimeManageController {
 
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 	
+	static defaultAction = "show"
+	
 
 	def taskPlanningService
 	
@@ -43,7 +45,7 @@ class TimeManageController {
 		if(task instanceof SubTask){
 		timeManageService.getBookingsByTask(task)}
 		else{
-			forward action: "index"
+			forward action: "show"
 		}
 	}
 	

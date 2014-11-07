@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div>
-		<g:form params="[taskid: taskid,date: date,start: start,end: end,amount: amount]">
+		<g:form method="post" params="[taskid: taskid,date: date,start: start,end: end,amount: amount]" >
 			<table>
 				<thead>
 					<tr>
@@ -45,7 +45,7 @@
 								${mapEntry.end.format('dd.MM.yyyy')}
 							</td>
 							<th class= "buttons">
-							<g:actionSubmit class="delete" action="delete"  
+							<g:actionSubmit class="delete" action="index"  
 								value="${message(code: 'default.button.delete.label', default: 'x')}"  
 							/>
 						</th>
@@ -58,7 +58,7 @@
 
 			</table>
 			<fieldset class="buttons">
-			<g:actionSubmit class="return" action="index"  
+			<g:actionSubmit class="return" action="show"  
 					value="${message(code: 'default.button.return.label', default: 'back to Projekt')}"  
 					/>	
 				<g:actionSubmit class="save" action="updateBookings"  
