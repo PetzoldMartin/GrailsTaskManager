@@ -3,6 +3,7 @@ import de.fh_zwickau.pti.tbpv2.Booking
 import de.fh_zwickau.pti.tbpv2.CompoundTask
 import de.fh_zwickau.pti.tbpv2.SubTask
 import de.fh_zwickau.pti.tbpv2.TimePlanning
+import de.fh_zwickau.pti.tbpv2.User
 
 class BootStrap {
 
@@ -22,10 +23,14 @@ class BootStrap {
 			tp1.save flush: true
 			prj.save flush: true	
 			sbtsk.save flush: true
-			booking.save flush: true
-			
+			booking.save flush: true			
 		}
-		
+		def testUser = new User(
+			username: 'me',
+			password: 'xx',
+			name: 'testuser'
+			)
+		testUser.save flush: true
     }
     def destroy = {
     }

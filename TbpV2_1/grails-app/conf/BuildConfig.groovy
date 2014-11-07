@@ -42,7 +42,7 @@ grails.project.dependency.resolution = {
         mavenCentral()
 		
 		//sercurity plugin repo import
-		//mavenRepo "http://repo.spring.io/milestone" 
+		mavenRepo "http://repo.spring.io/milestone" 
 		
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
         //mavenRepo "http://repository.codehaus.org"
@@ -72,7 +72,7 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.11.1"
 		
 		// security plugin compile
-		//compile ':spring-security-core:2.0-RC4' 
+		compile ':spring-security-core:2.0-RC4' 
 
         // Uncomment these to enable additional asset-pipeline capabilities
         //compile ":sass-asset-pipeline:1.7.4"
