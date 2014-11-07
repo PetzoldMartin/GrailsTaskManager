@@ -1,0 +1,38 @@
+/*
+* This is a manifest file that'll be compiled into application.css, which will include all the files
+* listed below.
+*
+* Any CSS file within this directory can be referenced here using a relative path.
+*
+* You're free to add application-wide styles to this file and they'll appear at the top of the
+* compiled file, but it's generally better to create a new file per style scope.
+*
+*= require main
+*= require mobile
+*= require_self
+*/
+
+#header { 
+ background: #48802c; 
+ padding: 2em 1em 2em 1em; 
+ margin-bottom: 1em; 
+} 
+a.header-main:link, a.header-main:visited { 
+ color: #fff; 
+ font-size: 3em; 
+ font-weight: bold; 
+} 
+.header-sub { 
+ color: #fff; 
+ font-size: 1.25em; 
+ font-style: italic; 
+} 
+
+#footer { 
+ font-size: 0.75em; 
+ font-style: italic; 
+ padding: 2em 1em 2em 1em; 
+ margin-bottom: 1em; 
+ margin-top: 1em; 
+ clear: both; 
+} 

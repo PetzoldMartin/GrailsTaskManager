@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>TbpV2</name>
+	<name>Teat AI</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
-		<buildCommand>
-			<name>org.eclipse.wst.common.project.facet.core.builder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -26,7 +21,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>C:/Users/Aismael/git/mod-ui-t-2014-g1/TbpV2_1/target/work/plugins</location>
+			<location>/home/foxel/Documents/eclipse_ws/mod-ui-t-2014-g1/Teat AI/target/work/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>

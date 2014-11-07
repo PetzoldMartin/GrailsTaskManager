@@ -11,4 +11,7 @@ class Booking {
 
     static constraints = {
     }
+	String toString(){
+		return "${date},${amount},${start},${end}"
+		}
 }
