@@ -13,7 +13,12 @@ class TimeManageService {
 	def getTask(int id) {
 
 		if (id == 0) {
-			[root: null , leafs: [getInfo(Task.findAllById(1))]]
+			def rootProjects = []
+			for (pro in Task.findAll()) {
+				if (pro.superTask == null)
+				rootProjects << getInfo(pro)
+			}
+			[root: null , leafs: rootProjects]
 		} else {
 			def task = Task.findAllById(id)
 			[root: getInfo(task) , leafs: getLeafs(task)]
