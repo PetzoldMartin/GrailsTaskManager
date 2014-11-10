@@ -64,6 +64,7 @@
 				<g:actionSubmit class="save" action="updateBookings"  
 					value="${message(code: 'default.button.save.label', default: 'Save new Booking')}"  
 					/>	
+
 			</fieldset>
 		</g:form>
 	</div>

@@ -15,14 +15,10 @@ import org.grails.databinding.BindingFormat;
 class TimeManageController {
 
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-	
 	static defaultAction = "show"
 	
-
 	def taskPlanningService
-	
-	
-	TimeManageService timeManageService
+	def timeManageService
 
 	
     def index() {
@@ -36,9 +32,17 @@ class TimeManageController {
 	 * @return internal content
 	 */
 	def show(int id) {
-		println id
 		def mymap = timeManageService.getTask(id)
 		[map:mymap]
+	}
+	
+	/**
+	 * Calls show with the id from parent
+	 * @param id TaskId
+	 * @return Parent Map with subtasks
+	 */
+	def showParent(int id) {
+		redirect(action: "show", id: Task.findById(id).superTask.id)
 	}
 	
 	def showBookings(int id){
