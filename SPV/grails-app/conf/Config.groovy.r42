@@ -28,7 +28,6 @@ grails.mime.types = [ // the first one is the default format
     rss:           'application/rss+xml',
     text:          'text/plain',
     hal:           ['application/hal+json','application/hal+xml'],
-    halj:          ['application/hal+json'],
     xml:           ['text/xml', 'application/xml']
 ]
 
@@ -133,7 +132,6 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],
 	'/**/favicon.ico':                ['permitAll'],
-	'/rest/**':                       ['permitAll'],
 	'/**':		                      ['isFullyAuthenticated()']
 ]
 

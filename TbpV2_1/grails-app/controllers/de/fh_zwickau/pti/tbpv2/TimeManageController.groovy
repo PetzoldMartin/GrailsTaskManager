@@ -76,11 +76,6 @@ class TimeManageController {
 		forward action: "showBookings" ,id: params.getAt("taskid")		
 	}
 	
-	@Transactional
-	def deleteBookings() {
-		timeManageService.deleteBooking(1);
-		forward action: "showBookings" ,id: params.getAt("taskid")
-	}
 	
 	@Validateable
 	class CreateBookingCmd {
@@ -101,6 +96,39 @@ class TimeManageController {
 	def String toString() {
 		"taskid: ${taskid},amount: ${amount},start: ${start},end: ${end},plannedHours: ${plannedHours},bookedHours: ${bookedHours}"
 	};
+
+	}
+	
+	
+	@Transactional
+	def deleteBookings(Booking booking) {
+			println "\ndeleteBocking " + booking.inspect()			
+			if (booking == null) {
+				notFound()
+				return
+			}
+	
+			booking.delete flush:true
+			
+			request.withFormat {
+				form multipartForm {
+					flash.message = message(code: 'default.deleted.message', args: [message(code: 'Booking.label', default: 'Booking'), booking.id])
+					redirect action:"index", method:"GET"
+				}
+				'*'{ render status: NO_CONTENT }
+			}
+		
+		forward action: "showBookings" ,id: params.getAt("taskid")
+	}
+	
+	protected void notFound() {
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.not.found.message', args: [message(code: 'Booking.label', default: 'booking'), params.id])
+				redirect action: "index", method: "GET"
+			}
+			'*'{ render status: NOT_FOUND }
+		}
 	}
 	
 }
