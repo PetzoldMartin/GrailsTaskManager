@@ -44,7 +44,7 @@
 								${mapEntry.end.format('dd.MM.yyyy')}
 							</td>
 							<th class= "buttons">
-							<g:actionSubmit class="delete" action="deleteBookings"  
+							<g:actionSubmit class="delete" action="deleteBookings"
 								value="${message(code: 'default.button.delete.label', default: 'x')}"  
 							/>
 						</th>

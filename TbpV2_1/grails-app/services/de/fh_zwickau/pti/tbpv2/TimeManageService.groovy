@@ -58,9 +58,6 @@ class TimeManageService {
 			booking.save flush: booking.validate()
 		}
 	}
-	def deleteBooking(int id) {
-		println "deleteBocking " + id
-	}
 }
 
 
