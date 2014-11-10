@@ -58,8 +58,9 @@
 			</table>
 			<fieldset class="buttons">
 			<g:actionSubmit class="return" action="show"  
-					value="${message(code: 'default.button.return.label', default: 'back to Projekt')}"  
-					/>	
+					value="${message(code: 'default.button.return.label', default: 'back to Projekt')}" />
+				<g:link class="save" action="show" id="${taskid}" >
+				${message(code: 'default.button.save.label', default: 'Save new Booking')}</g:link>
 				<g:actionSubmit class="save" action="updateBookings"  
 					value="${message(code: 'default.button.save.label', default: 'Save new Booking')}"  
 					/>	

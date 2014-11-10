@@ -36,6 +36,7 @@ class TimeManageController {
 	 * @return internal content
 	 */
 	def show(int id) {
+		println id
 		def mymap = timeManageService.getTask(id)
 		[map:mymap]
 	}
