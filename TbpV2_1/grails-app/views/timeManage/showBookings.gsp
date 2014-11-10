@@ -7,7 +7,7 @@
 </head>
 <body>
 	<div>
-		<g:form method="post" params="[taskid: taskid,date: date,start: start,end: end,amount: amount]" >
+		<g:form method="post" params="[taskid: taskid,date: date,start: start,end: end,amount: amount]" action="showBookings">
 			<table>
 				<thead>
 					<tr>
@@ -60,7 +60,7 @@
 			<g:actionSubmit class="return" action="show"  
 					value="${message(code: 'default.button.return.label', default: 'back to Projekt')}" />
 				<g:link class="save" action="show" id="${taskid}" >
-				${message(code: 'default.button.save.label', default: 'Save new Booking')}</g:link>
+				${message(code: 'default.button.save.label', default: 'back to Compundtask')}</g:link>
 				<g:actionSubmit class="save" action="updateBookings"  
 					value="${message(code: 'default.button.save.label', default: 'Save new Booking')}"  
 					/>	
