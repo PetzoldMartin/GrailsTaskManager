@@ -9,6 +9,7 @@ import de.fh_zwickau.pti.tbpv2.Booking
 import de.fh_zwickau.pti.tbpv2.CompoundTask
 import de.fh_zwickau.pti.tbpv2.SubTask
 import de.fh_zwickau.pti.tbpv2.TimePlanning
+
 import org.grails.databinding.BindUsing;
 import org.grails.databinding.BindingFormat;
 
@@ -53,105 +54,61 @@ class TimeManageController {
 			forward action: "show"
 		}
 	}
-	
 	@Transactional
 	def updateBookings(){
-		int amount = 0
-		if(params.amount.grep(~/\d+/)[0]!=null)
-		{amount = params.amount.grep(~/\d+/)[0].toInteger()}
-		int[] arr = Task.findAllById(params.int("taskid"))[0].bookings.amount;
-		int amountSum=0
-		for (i in arr) {
-			amountSum+=i
+		println params
+		println params.id
+		for(int i=0;i<params.id.length; i++){
+			def CMD=new BookingCmd(
+				bid: params.id[i].toInteger(),
+				taskid: params.int("taskid"),
+				plannedHours: Task.findById(params.int("taskid")).getTimeBudgetPlaned(),
+				bookedHours: Task.findById(params.int("taskid")).getTimeBudgetUsed()+params.amount[i].toInteger(),
+				amount: params.amount[i].toInteger(),
+				isNew: params.isNew[i].toBoolean(),
+				start: Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[i]),
+				end: Date.parse('dd.MM.yyyy',params.end.grep(~/\d\d\.\d\d\.\d\d\d\d/)[i])
+				)
+			if(params.id[i] in params.toDelete){CMD.toDelete=true}
+			timeManageService.updateBookings(CMD)
+			
+			
 		}
-		def bookingCMD = 
-		new CreateBookingCmd( amount: amount
-					,start: Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])
-					,end: Date.parse('dd.MM.yyyy',params.end.grep(~/\d\d\.\d\d\.\d\d\d\d/)[0])
-					,taskid:params.int("taskid")
-					,plannedHours: Task.findAllById(params.int("taskid"))[0].plans.timeBudgetPlan[0]
-					,bookedHours: amountSum + amount
-					)
-		timeManageService.updateBookings(bookingCMD)
 		
-		println bookingCMD
-		println Task.findAllById(bookingCMD.taskid)[0].plans.timeBudgetPlan[0]
-		println amountSum
-		forward action: "showBookings" ,id: params.getAt("taskid")		
+		forward action: "showBookings" ,id: params.getAt("taskid")
+		
 	}
 	
 	
 	@Validateable
-	class CreateBookingCmd {
+	class BookingCmd {
 		int taskid
 		int plannedHours
 		int bookedHours
 		int amount 
 		Date start
-		Date end	
+		Date end
+		boolean toDelete
+		boolean isNew
+		int bid	
 	
 	static constraints = {
 		amount min:1
 		start (validator:{val, obj ->obj.end >= val})
 		end max: new Date()
-		bookedHours (validator:{val, obj ->obj.plannedHours >= val})
+		bookedHours (validator:{val, obj ->obj.plannedHours >= val | obj.toDelete})
+		bid nullable:true
 	}
 
-	@Validateable
-	class ChangeBookingCmd extends CreateBookingCmd{
-		
-	}
+	
 	def String toString() {
-		"taskid: ${taskid},amount: ${amount},start: ${start},end: ${end},plannedHours: ${plannedHours},bookedHours: ${bookedHours}"
+		"toDelete: ${toDelete},isNew: ${isNew},taskid: ${taskid},bid: ${bid},amount: ${amount},start: ${start},end: ${end},plannedHours: ${plannedHours},bookedHours: ${bookedHours}"
 	};
 
 	}
 	
 	
-	@Transactional
-	def deleteBookings() {
-		println params.bookingID
-		def booking=Booking.findAllById(params.bookingID.grep(~/\d+/))[0]
-			println "\ndeleteBocking " + booking.inspect()			
-			if (booking == null) {
-				notFound()
-				return
-			}
 	
-			booking.delete flush:true
-//			
-//			request.withFormat {
-//				form multipartForm {
-//					flash.message = message(code: 'default.deleted.message', args: [message(code: 'Booking.label', default: 'Booking'), booking.id])
-//					redirect action:"index", method:"GET"
-//				}
-//				'*'{ render status: NO_CONTENT }
-//			}
-		
-		forward action: "showBookings" ,id: params.getAt("taskid")
-	}
-	
-	@Transactional
-	def changeBookings() {
-		println params.getAt("taskid")
-		println params.start
-		println params.bookingID
-		def booking=Booking.findAllById(params.bookingID.grep(~/\d+/))[0]
-			println "\nactuallBooking " + booking.inspect()
-			println params.getAt("amount").grep(~/\d+/)[0]
-			//booking.update flush:true
-		
-		forward action: "showBookings" ,id: params.getAt("taskid")
-	}
-	
-	protected void notFound() {
-		request.withFormat {
-			form multipartForm {
-				flash.message = message(code: 'default.not.found.message', args: [message(code: 'Booking.label', default: 'booking'), params.id])
-				redirect action: "index", method: "GET"
-			}
-			'*'{ render status: NOT_FOUND }
-		}
-	}
+
 	
 }

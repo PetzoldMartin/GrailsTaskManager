@@ -7,12 +7,21 @@
 
 </head>
 <body>
-<h1>Booked Time: ${message(code: timeBudgetPlan)} Available Time: ${message(code: timeBudgetPlan-bookedTime)}</h1>
+	<h1>
+		Booked Time:
+		${message(code: timeBudgetPlan)}
+		Available Time:
+		${message(code: timeBudgetPlan-bookedTime)}
+	</h1>
 	<div>
+ 						<g:form method="post" action="showBookings"  >
 
 		<table>
 			<thead>
 				<tr>
+					<th>
+						${message(code: 'Booking.delete.label', default: 'to delete')}
+					</th>
 					<th>
 						${message(code: 'Booking.date.label', default: 'Bookingdate')}
 					</th>
@@ -30,51 +39,38 @@
 				</tr>
 			</thead>
 			<tbody>
-				<g:each in="${bookings}" var="mapEntry">
-					<tr>
-						<g:form action="showBookings" params="[taskid: taskid,bookingID: bookingID,date: date,start: start,end: end,amount: amount]">
-					
-						<td><g:field name="date" type="text"
-								value="${mapEntry.date.format('dd.MM.yyyy')}" size="10"
-								pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" readonly="${true}" />
+				
+ 				<g:hiddenField name="taskid" value="${taskid}" />
+ 						
+					<g:each in="${bookings}" var="mapEntry">
+						<tr><td>
+							<g:checkBox name="toDelete" value="${mapEntry.id}" checked="${false}"/>
+							</td>
+							<td><g:field name="date" type="text"
+									value="${mapEntry.date.format('dd.MM.yyyy')}" size="10"
+									pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" readonly="${true}" /></td>
+							<td><g:field name="amount" type="number"
+									value="${mapEntry.amount}" min="0" max="100000" size="6" onchange="this.style.background='yellow';"/></td>
+							<td><g:field name="start" type="text"
+									value="${mapEntry.start.format('dd.MM.yyyy')}" size="10" oninput="this.style.background='yellow';"
+									pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" /></td>
+							<td><g:field name="end" type="text"
+									value="${mapEntry.end.format('dd.MM.yyyy')}" size="10" oninput="this.style.background='yellow';"
+									pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" /></td>
+							<g:hiddenField name="id" value="${mapEntry.id}" />
+							<g:hiddenField name="isNew" value="${false}" />
+							
 
-						</td>
-						<td><g:field name="amount" type="number"
-								value="${mapEntry.amount}" min="0" max="100000" size="6" /></td>
-						<td><g:field name="start" type="text"
-								value="${mapEntry.start.format('dd.MM.yyyy')}" size="10"
-								pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" /></td>
-						<td><g:field name="end" type="text"
-								value="${mapEntry.end.format('dd.MM.yyyy')}" size="10"
-								pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" /></td>
-						<g:hiddenField name="bookingID" value="${mapEntry.id}" />
-							<th class="buttons"><g:actionSubmit class="delete"
-									action="deleteBookings"
-									value="${message(code: 'default.button.delete.label', default: 'x')}" />
-							</th>
-							<th class="buttons">
-							<g:actionSubmit class="save"
-									action="changeBookings"
-									value="${message(code: 'default.button.update.label', default: 'x')}" />
-							</th>
-									
-						</g:form>
-					</tr>
-				</g:each>
-				<g:form method="post"
-					params="[taskid: taskid,date: date,start: start,end: end,amount: amount]"
-					action="showBookings">
+						</tr>
+					</g:each>
+
 					<tr>
 						<g:render template="newBookingsline" />
-						<td class="buttons"><g:actionSubmit class="save"
-								action="updateBookings"
-								value="${message(code: 'default.button.save.label', default: 'Save Booking')}" />
-						</td>
-						<td class="buttons">
-						</td>
+
 					</tr>
-				</g:form>
+					
 			</tbody>
+			
 		</table>
 
 		<fieldset class="buttons">
@@ -83,11 +79,14 @@
 			<g:link class="save" action="showParent" id="${taskid}">
 				${message(code: 'default.button.save.label', default: 'back to Compundtask')}
 			</g:link>
-
+			<g:actionSubmit class="save"
+								action="updateBookings"
+								value="${message(code: 'default.button.save.label', default: 'Update Bookings')}" />
 		</fieldset>
 
 
-
+		</g:form>
+		
 	</div>
 
 </body>

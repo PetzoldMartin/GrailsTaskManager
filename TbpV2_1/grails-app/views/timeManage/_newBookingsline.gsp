@@ -1,4 +1,5 @@
-
+			<td>
+			</td>			
   	  		<td>
   	  		<g:field name="date" type="text" 
 				value="${new Date().clearTime().format('dd.MM.yyyy')}" size="10" 
@@ -25,5 +26,8 @@
 				pattern="${~/\d\d\.\d\d\.\d\d\d\d/}"
 				/>
   	  	  </td>
+  	  	  							<g:hiddenField name="id" value="0" />
+  	  	  							<g:hiddenField name="isNew" value="${true}" />
+  	  	  
   	  	  
   	

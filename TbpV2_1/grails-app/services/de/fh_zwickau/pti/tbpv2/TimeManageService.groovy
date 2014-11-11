@@ -1,6 +1,6 @@
 package de.fh_zwickau.pti.tbpv2
 
-import de.fh_zwickau.pti.tbpv2.TimeManageController.CreateBookingCmd
+import de.fh_zwickau.pti.tbpv2.TimeManageController.BookingCmd
 import grails.transaction.Transactional
 import grails.validation.Validateable;
 
@@ -16,7 +16,7 @@ class TimeManageService {
 			def rootProjects = []
 			for (pro in Task.findAll()) {
 				if (pro.superTask == null)
-				rootProjects << getInfo(pro)
+					rootProjects << getInfo(pro)
 			}
 			[root: null , leafs: rootProjects]
 		} else {
@@ -48,16 +48,49 @@ class TimeManageService {
 		def bookedTime=Task.findAllById(task.id)[0].getTimeBudgetUsed()
 		[bookings: bookings,taskid: taskid,timeBudgetPlan: timeBudgetPlan,bookedTime: bookedTime]
 	}
-	def updateBookings(CreateBookingCmd createBookingcmd) {
-		if(createBookingcmd.validate()){
-			def booking = new Booking(amount: createBookingcmd.amount,
-			start: createBookingcmd.start,
-			end: createBookingcmd.end
+	def updateBookings(BookingCmd CMD) {
+		println CMD.inspect()
+		println "x"
 
-			)
-			Task.findAllById(createBookingcmd.taskid)[0].addToBookings booking
+		if(CMD.validate()){
+			if(CMD.isNew){
+				newBooking(CMD)
+		}
+			if(CMD.toDelete){
+				deleteBooking(CMD)
+		}
+			}
+	}
+		
+	def newBooking(BookingCmd CMD) {
+		def booking = new Booking(amount: CMD.amount,
+		start: CMD.start,
+		end: CMD.end
 
-			booking.save flush: booking.validate()
+		)
+		Task.findAllById(CMD.taskid)[0].addToBookings booking
+
+		booking.save flush: booking.validate()
+	}
+	
+	def deleteBooking(BookingCmd CMD){
+		def booking=Booking.findAllById(CMD.bid)[0]
+		println "\ndeleteBocking " + booking.inspect()
+		if (booking == null) {
+			notFound()
+			return
+		}
+		Task.findAllById(CMD.taskid)[0].removeFromBookings booking
+		booking.delete flush:true
+	}
+
+	protected void notFound() {
+		request.withFormat {
+			form multipartForm {
+				flash.message = message(code: 'default.not.found.message', args: [message(code: 'Booking.label', default: 'booking'), params.id])
+				redirect action: "index", method: "GET"
+			}
+			'*'{ render status: NOT_FOUND }
 		}
 	}
 }
