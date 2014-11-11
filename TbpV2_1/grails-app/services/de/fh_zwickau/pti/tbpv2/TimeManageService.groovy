@@ -47,10 +47,15 @@ class TimeManageService {
 		trace
 	}
 
-
 	def getInfo(Task task) {
 		boolean comp = task instanceof CompoundTask
-		[name: task.name, id: task.id, description: task.description, compound: comp, parent: task.superTask]
+		[name: task.name,
+		 id: task.id,
+		 description: task.description,
+		 compound: comp,
+		 parent: task.superTask,
+		 planed: task.getTimeBudgetPlaned(),
+		 used: task.getTimeBudgetUsed()]
 	}
 
 	def getBookingsByTask(Task task) {

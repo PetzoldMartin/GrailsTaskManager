@@ -19,8 +19,11 @@
 		<!-- Current Task Info -->
 		<g:if test = "${map.root != null}">
 			<h4>${map.root.name}</h4>
-			<div style="margin: 10px">
+			<div style="margin: 10px">				
 				<p>${map.root.description}</p>
+				<div align="right">
+					<h5>Planed: ${map.root.planed} Used: ${map.root.used}</h5>
+				</div>
 			</div>
 		</g:if>
 
