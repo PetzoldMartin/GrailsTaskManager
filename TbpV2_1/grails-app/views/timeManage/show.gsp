@@ -17,12 +17,17 @@
 		<p><b>Fett</b> = CompoundTask</p>
 		<p>Normal = SubTask</p>
 		
-		<p></p>
-		
 		<!-- simple debug view -->
-		<p>${map}</p>
+		<!--  <p>${map}</p> -->
 		
+		<!-- Trace Navigation -->
+		<p>
+			<g:each in="${map.trace}" var="item">
+				<g:link action="show" id="${item.getAt('id')}"><b>${item.getAt('name')}</b></g:link>
+			</g:each>
+		</p>
 		
+		<!-- Current Task Info -->
 		<g:if test = "${map.root != null}">
 			<h4>${map.root.name}</h4>
 			<p>${map.root.description}</p>
@@ -31,6 +36,7 @@
 			</g:if>
 		</g:if>
 
+		<!-- SubTask Table -->
 		<table>
 			<thead>
 				<tr>
