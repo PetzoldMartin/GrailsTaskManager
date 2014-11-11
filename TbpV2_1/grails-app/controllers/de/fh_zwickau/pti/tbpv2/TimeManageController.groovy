@@ -138,6 +138,8 @@ class TimeManageController {
 		println params.bookingID
 		def booking=Booking.findAllById(params.bookingID.grep(~/\d+/))[0]
 			println "\nactuallBooking " + booking.inspect()
+			println params.getAt("amount").grep(~/\d+/)[0]
+			//booking.update flush:true
 		
 		forward action: "showBookings" ,id: params.getAt("taskid")
 	}
