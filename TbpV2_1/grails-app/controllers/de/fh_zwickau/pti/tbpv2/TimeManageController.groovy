@@ -97,6 +97,10 @@ class TimeManageController {
 		bookedHours (validator:{val, obj ->obj.plannedHours >= val})
 	}
 
+	@Validateable
+	class ChangeBookingCmd extends CreateBookingCmd{
+		
+	}
 	def String toString() {
 		"taskid: ${taskid},amount: ${amount},start: ${start},end: ${end},plannedHours: ${plannedHours},bookedHours: ${bookedHours}"
 	};
@@ -105,15 +109,16 @@ class TimeManageController {
 	
 	
 	@Transactional
-	def deleteBookings(Booking booking) {
-		println params.getAt("taskid")
+	def deleteBookings() {
+		println params.bookingID
+		def booking=Booking.findAllById(params.bookingID.grep(~/\d+/))[0]
 			println "\ndeleteBocking " + booking.inspect()			
-//			if (booking == null) {
-//				notFound()
-//				return
-//			}
-//	
-//			booking.delete flush:true
+			if (booking == null) {
+				notFound()
+				return
+			}
+	
+			booking.delete flush:true
 //			
 //			request.withFormat {
 //				form multipartForm {
@@ -122,6 +127,17 @@ class TimeManageController {
 //				}
 //				'*'{ render status: NO_CONTENT }
 //			}
+		
+		forward action: "showBookings" ,id: params.getAt("taskid")
+	}
+	
+	@Transactional
+	def changeBookings() {
+		println params.getAt("taskid")
+		println params.start
+		println params.bookingID
+		def booking=Booking.findAllById(params.bookingID.grep(~/\d+/))[0]
+			println "\nactuallBooking " + booking.inspect()
 		
 		forward action: "showBookings" ,id: params.getAt("taskid")
 	}

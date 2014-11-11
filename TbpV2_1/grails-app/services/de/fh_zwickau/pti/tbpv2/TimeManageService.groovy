@@ -44,7 +44,9 @@ class TimeManageService {
 	def getBookingsByTask(Task task) {
 		def bookings=Booking.findAllByTask(task);
 		def taskid=task.id
-		[bookings: bookings,taskid: taskid]
+		def timeBudgetPlan=Task.findAllById(task.id)[0].getTimeBudgetPlaned()
+		def bookedTime=Task.findAllById(task.id)[0].getTimeBudgetUsed()
+		[bookings: bookings,taskid: taskid,timeBudgetPlan: timeBudgetPlan,bookedTime: bookedTime]
 	}
 	def updateBookings(CreateBookingCmd createBookingcmd) {
 		if(createBookingcmd.validate()){
