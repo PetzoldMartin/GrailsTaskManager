@@ -10,31 +10,29 @@
 <title>TimeManager</title>
 </head>
 <body>
-	<div class="body">
-		<h1>Time Manager Treeview</h1>
-		
-
-		<p><b>Fett</b> = CompoundTask</p>
-		<p>Normal = SubTask</p>
-		
+	<div class="body" style="margin: 10px">
+		<h1>Time Manager Traceview</h1>
+	
 		<!-- simple debug view -->
 		<!--  <p>${map}</p> -->
-		
-		<!-- Trace Navigation -->
-		<p>
-			<g:each in="${map.trace}" var="item">
-				<g:link action="show" id="${item.getAt('id')}"><b>${item.getAt('name')}</b></g:link>
-			</g:each>
-		</p>
 		
 		<!-- Current Task Info -->
 		<g:if test = "${map.root != null}">
 			<h4>${map.root.name}</h4>
-			<p>${map.root.description}</p>
-			<g:if test = "${map.root.parent != null}">
-				<p>Parent Task: ${map.root.parent}</p>
-			</g:if>
+			<div style="margin: 10px">
+				<p>${map.root.description}</p>
+			</div>
 		</g:if>
+
+		<div style="background-color:#f0f0f0; margin-top: 20px; margin-bottom: 10px">
+		<!-- Trace Navigation -->
+		<p> Parent Trace </p>
+		<p>
+			<g:each in="${map.trace}" var="item">
+				<g:link action="show" id="${item.getAt('id')}"><b>${item.getAt('name')}</b></g:link> / 
+			</g:each>
+		</p>
+		</div>
 
 		<!-- SubTask Table -->
 		<table>
@@ -61,6 +59,13 @@
 			</tbody>
 
 		</table>
+		<div style="background-color:#f0f0f0;">
+			<p><b>Fett</b> = CompoundTask</p>
+			<p>Normal = SubTask</p>
+		</div>
 	</div>
 </body>
+
+
+
 </html>
