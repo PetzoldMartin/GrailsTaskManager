@@ -106,21 +106,22 @@ class TimeManageController {
 	
 	@Transactional
 	def deleteBookings(Booking booking) {
+		println params.getAt("taskid")
 			println "\ndeleteBocking " + booking.inspect()			
-			if (booking == null) {
-				notFound()
-				return
-			}
-	
-			booking.delete flush:true
-			
-			request.withFormat {
-				form multipartForm {
-					flash.message = message(code: 'default.deleted.message', args: [message(code: 'Booking.label', default: 'Booking'), booking.id])
-					redirect action:"index", method:"GET"
-				}
-				'*'{ render status: NO_CONTENT }
-			}
+//			if (booking == null) {
+//				notFound()
+//				return
+//			}
+//	
+//			booking.delete flush:true
+//			
+//			request.withFormat {
+//				form multipartForm {
+//					flash.message = message(code: 'default.deleted.message', args: [message(code: 'Booking.label', default: 'Booking'), booking.id])
+//					redirect action:"index", method:"GET"
+//				}
+//				'*'{ render status: NO_CONTENT }
+//			}
 		
 		forward action: "showBookings" ,id: params.getAt("taskid")
 	}

@@ -1,4 +1,4 @@
-<tr>
+
   	  		<td>
   	  		<g:field name="date" type="text" 
 				value="${new Date().clearTime().format('dd.MM.yyyy')}" size="10" 
@@ -25,4 +25,5 @@
 				pattern="${~/\d\d\.\d\d\.\d\d\d\d/}"
 				/>
   	  	  </td>
-  	  </tr>
+  	  	  
+  	

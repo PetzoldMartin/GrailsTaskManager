@@ -7,66 +7,73 @@
 </head>
 <body>
 	<div>
-		<g:form method="post" params="[taskid: taskid,date: date,start: start,end: end,amount: amount]" action="showBookings">
-			<table>
-				<thead>
-					<tr>
-						<th>
-							${message(code: 'Booking.date.label', default: 'Bookingdate')}
-						</th>
-						<th>
-							${message(code: 'Booking.amount.label', default: 'Booked Hours')}
-						</th>
-						<th>
-							${message(code: 'Booking.start.label', default: 'Startdate')}
-						</th>
-						<th>
-							${message(code: 'Booking.end.label', default: 'Enddate')}
-						</th>	
-						<th>
-							
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<g:each in="${bookings}" var="mapEntry">
-						<tr>
-							<td>
-								${mapEntry.date.format('dd.MM.yyyy')}
-							</td>
-							<td>
-								${mapEntry.amount}
-							</td>
-							<td>
-								${mapEntry.start.format('dd.MM.yyyy')}
-							</td>
-							<td>
-								${mapEntry.end.format('dd.MM.yyyy')}
-							</td>
-							<th class= "buttons">
-							<g:actionSubmit class="delete" action="deleteBookings"
-								value="${message(code: 'default.button.delete.label', default: 'x')}"  
-							/>
-						</th>
-						</tr>	
-					</g:each>
-					<tr>
-						<g:render template="editBookingsline"/>
-					</tr>
-				</tbody>
 
-			</table>
-			<fieldset class="buttons">
-			<g:actionSubmit class="return" action="show"  
-					value="${message(code: 'default.button.return.label', default: 'back to Projekt')}" />
-				<g:link class="save" action="show" id="${taskid}" >
-				${message(code: 'default.button.save.label', default: 'back to Compundtask')}</g:link>
-				<g:actionSubmit class="save" action="updateBookings"  
-					value="${message(code: 'default.button.save.label', default: 'Save new Booking')}"  
-					/>	
+		<table>
+			<thead>
+				<tr>
+					<th>
+						${message(code: 'Booking.date.label', default: 'Bookingdate')}
+					</th>
+					<th>
+						${message(code: 'Booking.amount.label', default: 'Booked Hours')}
+					</th>
+					<th>
+						${message(code: 'Booking.start.label', default: 'Startdate')}
+					</th>
+					<th>
+						${message(code: 'Booking.end.label', default: 'Enddate')}
+					</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<g:each in="${bookings}" var="mapEntry">
+					<tr>
+						<td>
+							${mapEntry.date.format('dd.MM.yyyy')}
+						</td>
+						<td>
+							${mapEntry.amount}
+						</td>
+						<td>
+							${mapEntry.start.format('dd.MM.yyyy')}
+						</td>
+						<td>
+							${mapEntry.end.format('dd.MM.yyyy')}
+						</td>
+						<g:form params="[taskid: taskid]">
+							<th class="buttons"><g:actionSubmit class="delete"
+									action="deleteBookings"
+									value="${message(code: 'default.button.delete.label', default: 'x')}" />
+							</th>
+						</g:form>
+					</tr>
+				</g:each>
+				<g:form method="post"
+					params="[taskid: taskid,date: date,start: start,end: end,amount: amount]"
+					action="showBookings">
+					<tr>
+						<g:render template="editBookingsline" />
+						<td class="buttons"><g:actionSubmit class="save"
+								action="updateBookings"
+								value="${message(code: 'default.button.save.label', default: 'Save Booking')}" />
+						</td>
+					</tr>
+				</g:form>
+			</tbody>
+		</table>
 
-			</fieldset>
-		</g:form>
+		<fieldset class="buttons">
+			<g:actionSubmit class="return" action="show"
+				value="${message(code: 'default.button.return.label', default: 'back to Projekt')}" />
+			<g:link class="save" action="show" id="${taskid}">
+				${message(code: 'default.button.save.label', default: 'back to Compundtask')}
+			</g:link>
+
+		</fieldset>
+
+
+
 	</div>
 
 </body>
