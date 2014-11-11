@@ -41,7 +41,8 @@
 						<td>
 							${mapEntry.end.format('dd.MM.yyyy')}
 						</td>
-						<g:form params="[taskid: taskid]">
+						<g:def var="bookingID" value="${mapEntry.id}"/>
+						<g:form params="[taskid: taskid,id: bookingID]">
 							<th class="buttons"><g:actionSubmit class="delete"
 									action="deleteBookings"
 									value="${message(code: 'default.button.delete.label', default: 'x')}" />
