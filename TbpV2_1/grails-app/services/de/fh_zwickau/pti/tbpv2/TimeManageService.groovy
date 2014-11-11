@@ -18,10 +18,10 @@ class TimeManageService {
 				if (pro.superTask == null)
 					rootProjects << getInfo(pro)
 			}
-			[root: null , leafs: rootProjects]
+			[root: null , leafs: rootProjects, trace: null]
 		} else {
 			def task = Task.findAllById(id)
-			[root: getInfo(task) , leafs: getLeafs(task)]
+			[root: getInfo(task) , leafs: getLeafs(task), trace: getTraceRoute(task)]
 		}
 	}
 
@@ -33,6 +33,18 @@ class TimeManageService {
 			}
 		}
 		sub
+	}
+
+	def getTraceRoute(Task task) {
+		def trace = []
+		def Task parent = task.superTask
+		
+		trace << [name: "root", id: 0]
+		while(parent != null){
+			trace << [name: parent.name, id: parent.id]
+			parent = parent.superTask
+		}
+		trace
 	}
 
 
