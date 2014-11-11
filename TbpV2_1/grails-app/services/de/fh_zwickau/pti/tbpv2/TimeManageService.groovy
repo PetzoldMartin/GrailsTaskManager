@@ -49,17 +49,18 @@ class TimeManageService {
 		[bookings: bookings,taskid: taskid,timeBudgetPlan: timeBudgetPlan,bookedTime: bookedTime]
 	}
 	def updateBookings(BookingCmd CMD) {
-		println CMD.inspect()
-		println "x"
+		//println CMD.inspect()
 
 		if(CMD.validate()){
 			if(CMD.isNew){
 				newBooking(CMD)
-		}
+		}else{
 			if(CMD.toDelete){
 				deleteBooking(CMD)
+		}else{
+		changeBooking(CMD)
+		}}
 		}
-			}
 	}
 		
 	def newBooking(BookingCmd CMD) {
@@ -82,6 +83,24 @@ class TimeManageService {
 		}
 		Task.findAllById(CMD.taskid)[0].removeFromBookings booking
 		booking.delete flush:true
+	}
+	
+	def changeBooking(BookingCmd CMD){
+		def booking=Booking.findAllById(CMD.bid)[0]
+		
+		//println "\nchange " + booking.inspect()
+		//println "\nchange " + CMD.inspect()
+		
+		if(booking.amount!=CMD.amount|
+			booking.start!=CMD.start|
+			booking.end!=CMD.end){
+			booking.amount=CMD.amount
+			booking.start=CMD.start
+			booking.end=CMD.end
+			booking.save flush:true
+			//println "changes"
+		}
+		
 	}
 
 	protected void notFound() {

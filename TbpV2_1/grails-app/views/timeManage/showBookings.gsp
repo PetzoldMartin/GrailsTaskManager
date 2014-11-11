@@ -14,52 +14,57 @@
 		${message(code: timeBudgetPlan-bookedTime)}
 	</h1>
 	<div>
- 						<g:form method="post" action="showBookings"  >
+		<g:form method="post" action="showBookings">
 
-		<table>
-			<thead>
-				<tr>
-					<th>
-						${message(code: 'Booking.delete.label', default: 'to delete')}
-					</th>
-					<th>
-						${message(code: 'Booking.date.label', default: 'Bookingdate')}
-					</th>
-					<th>
-						${message(code: 'Booking.amount.label', default: 'Booked Hours')}
-					</th>
-					<th>
-						${message(code: 'Booking.start.label', default: 'Startdate')}
-					</th>
-					<th>
-						${message(code: 'Booking.end.label', default: 'Enddate')}
-					</th>
-					<th></th>
-					<th></th>
-				</tr>
-			</thead>
-			<tbody>
-				
- 				<g:hiddenField name="taskid" value="${taskid}" />
- 						
+			<table>
+				<thead>
+					<tr>
+						<th>
+							${message(code: 'Booking.delete.label', default: 'to delete')}
+						</th>
+						<th>
+							${message(code: 'Booking.date.label', default: 'Bookingdate')}
+						</th>
+						<th>
+							${message(code: 'Booking.amount.label', default: 'Booked Hours')}
+						</th>
+						<th>
+							${message(code: 'Booking.start.label', default: 'Startdate')}
+						</th>
+						<th>
+							${message(code: 'Booking.end.label', default: 'Enddate')}
+						</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<g:hiddenField name="taskid" value="${taskid}" />
+
 					<g:each in="${bookings}" var="mapEntry">
-						<tr><td>
-							<g:checkBox name="toDelete" value="${mapEntry.id}" checked="${false}"/>
-							</td>
+						<g:hiddenField name="changed" value="${false}" />
+
+						<tr>
+							<td><g:checkBox name="toDelete" value="${mapEntry.id}"
+									checked="${false}" /></td>
 							<td><g:field name="date" type="text"
 									value="${mapEntry.date.format('dd.MM.yyyy')}" size="10"
 									pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" readonly="${true}" /></td>
 							<td><g:field name="amount" type="number"
-									value="${mapEntry.amount}" min="0" max="100000" size="6" onchange="this.style.background='yellow';"/></td>
+									value="${mapEntry.amount}" min="0" max="100000" size="6"
+									onchange=" this.style.background='yellow';" /></td>
 							<td><g:field name="start" type="text"
-									value="${mapEntry.start.format('dd.MM.yyyy')}" size="10" oninput="this.style.background='yellow';"
+									value="${mapEntry.start.format('dd.MM.yyyy')}" size="10"
+									oninput="this.style.background='yellow';"
 									pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" /></td>
 							<td><g:field name="end" type="text"
-									value="${mapEntry.end.format('dd.MM.yyyy')}" size="10" oninput="this.style.background='yellow';"
+									value="${mapEntry.end.format('dd.MM.yyyy')}" size="10"
+									oninput="this.style.background='yellow';"
 									pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" /></td>
 							<g:hiddenField name="id" value="${mapEntry.id}" />
 							<g:hiddenField name="isNew" value="${false}" />
-							
+
 
 						</tr>
 					</g:each>
@@ -68,25 +73,24 @@
 						<g:render template="newBookingsline" />
 
 					</tr>
-					
-			</tbody>
-			
-		</table>
 
-		<fieldset class="buttons">
-			<g:actionSubmit class="return" action="show"
-				value="${message(code: 'default.button.return.label', default: 'back to Projekt')}" />
-			<g:link class="save" action="showParent" id="${taskid}">
-				${message(code: 'default.button.save.label', default: 'back to Compundtask')}
-			</g:link>
-			<g:actionSubmit class="save"
-								action="updateBookings"
-								value="${message(code: 'default.button.save.label', default: 'Update Bookings')}" />
-		</fieldset>
+				</tbody>
+
+			</table>
+
+			<fieldset class="buttons">
+				<g:actionSubmit class="return" action="show"
+					value="${message(code: 'default.button.return.label', default: 'back to Projekt')}" />
+				<g:link class="save" action="showParent" id="${taskid}">
+					${message(code: 'default.button.save.label', default: 'back to Compundtask')}
+				</g:link>
+				<g:actionSubmit class="save" action="updateBookings"
+					value="${message(code: 'default.button.save.label', default: 'Update Bookings')}" />
+			</fieldset>
 
 
 		</g:form>
-		
+
 	</div>
 
 </body>

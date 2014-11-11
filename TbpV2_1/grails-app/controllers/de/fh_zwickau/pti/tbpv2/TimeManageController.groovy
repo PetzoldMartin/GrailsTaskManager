@@ -56,20 +56,24 @@ class TimeManageController {
 	}
 	@Transactional
 	def updateBookings(){
-		println params
-		println params.id
+//		println params
+//		println params.id
 		for(int i=0;i<params.id.length; i++){
 			def CMD=new BookingCmd(
 				bid: params.id[i].toInteger(),
 				taskid: params.int("taskid"),
 				plannedHours: Task.findById(params.int("taskid")).getTimeBudgetPlaned(),
-				bookedHours: Task.findById(params.int("taskid")).getTimeBudgetUsed()+params.amount[i].toInteger(),
+				bookedHours: Task.findById(params.int("taskid")).getTimeBudgetUsed(),
 				amount: params.amount[i].toInteger(),
 				isNew: params.isNew[i].toBoolean(),
 				start: Date.parse('dd.MM.yyyy',params.start.grep(~/\d\d\.\d\d\.\d\d\d\d/)[i]),
 				end: Date.parse('dd.MM.yyyy',params.end.grep(~/\d\d\.\d\d\.\d\d\d\d/)[i])
 				)
+
 			if(params.id[i] in params.toDelete){CMD.toDelete=true}
+			
+			if(Booking.findAllById(CMD.bid)[0]!=null){CMD.bookedHours=CMD.bookedHours-Booking.findAllById(CMD.bid)[0].amount}
+			
 			timeManageService.updateBookings(CMD)
 			
 			
@@ -96,7 +100,7 @@ class TimeManageController {
 		amount min:1
 		start (validator:{val, obj ->obj.end >= val})
 		end max: new Date()
-		bookedHours (validator:{val, obj ->obj.plannedHours >= val | obj.toDelete})
+		bookedHours (validator:{val, obj ->obj.plannedHours >= val+obj.amount | obj.toDelete})
 		bid nullable:true
 	}
 
