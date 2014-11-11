@@ -80,7 +80,7 @@
 		<fieldset class="buttons">
 			<g:actionSubmit class="return" action="show"
 				value="${message(code: 'default.button.return.label', default: 'back to Projekt')}" />
-			<g:link class="save" action="show" id="${taskid}">
+			<g:link class="save" action="showParent" id="${taskid}">
 				${message(code: 'default.button.save.label', default: 'back to Compundtask')}
 			</g:link>
 
