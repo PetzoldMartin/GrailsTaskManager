@@ -11,6 +11,7 @@ class StudentsRestController {
 	def restfulRenderService
 
 	def index() {
+		println "list $params"
 		def studs = []
 		for(student in Student.list()) {
 			studs << [
@@ -25,6 +26,7 @@ class StudentsRestController {
 	}
 
 	def show() {
+		println "show $params"
 		def id = params.id
 		if(id) {
 			def student = Student.get(id)
@@ -45,15 +47,18 @@ class StudentsRestController {
 	}
 
 	def save() {
-		render "show $params"
+		println "save $params" 
+		forward action: "index"
 	}
 
 	def update() {
-		render "show $params"
+		println "update $params"
+		forward action: "index"
 	}
 
 	def delete() {
-		render "show $params"
+		println "delete $params"
+		forward action: "index"
 	}
 
 	protected format (model, halmodel) {
