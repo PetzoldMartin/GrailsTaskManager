@@ -70,9 +70,10 @@
 					</g:each>
 
 					<tr>
-						<g:render template="newBookingsline" />
-
+						<g:render template="newBookingsline" />	
+						<g:render template="hiddenBookingsline" />												
 					</tr>
+					
 
 				</tbody>
 

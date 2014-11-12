@@ -56,9 +56,11 @@ class TimeManageController {
 	}
 	@Transactional
 	def updateBookings(){
-//		println params
-//		println params.id
+//				println params
+//		println params.id.length
 		for(int i=0;i<params.id.length; i++){
+			println i
+			
 			def CMD=new BookingCmd(
 				bid: params.id[i].toInteger(),
 				taskid: params.int("taskid"),
