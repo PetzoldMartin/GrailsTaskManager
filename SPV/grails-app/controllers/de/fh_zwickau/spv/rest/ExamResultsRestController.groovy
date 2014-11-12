@@ -3,23 +3,23 @@ package de.fh_zwickau.spv.rest
 class ExamResultsRestController {
 
     def index() { 
-		render "show $params"
+		render "ExamResult index $params"
 		
 	}
 	
 	def show() { 
-		render "show $params"
+		render "ExamResult show $params"
 	}
 	
 	def save() { 
-		render "show $params"
+		render "ExamResult save $params"
 	}
 	
 	def update() { 
-		render "show $params"
+		render "ExamResult update $params"
 	}
 	
 	def delete() { 
-		render "show $params"
+		render "ExamResult delete $params"
 	}
 }
