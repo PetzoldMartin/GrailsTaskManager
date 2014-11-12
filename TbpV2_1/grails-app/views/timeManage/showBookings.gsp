@@ -52,7 +52,9 @@
 									value="${mapEntry.date.format('dd.MM.yyyy')}" size="10"
 									pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" readonly="${true}" /></td>
 							<td><g:field name="amount" type="number"
-									value="${mapEntry.amount}" min="0" max="100000" size="6"
+									value="${mapEntry.amount}" min="0"
+									 max="100000" size="6"
+									 oninput="this.style.background='yellow';"
 									onchange=" this.style.background='yellow';" /></td>
 							<td><g:field name="start" type="text"
 									value="${mapEntry.start.format('dd.MM.yyyy')}" size="10"
