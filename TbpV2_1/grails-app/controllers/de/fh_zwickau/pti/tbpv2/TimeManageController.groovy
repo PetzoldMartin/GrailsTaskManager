@@ -82,10 +82,11 @@ class TimeManageController {
 			
 		}
 		
-		forward action: "showBookings" ,id: params.getAt("taskid")
-						}.invalidToken {
-						render "invalid form submission"
-						}
+		forward action: "showBookings" ,id: params.getAt("taskid")}
+//						.invalidToken {
+//						render "invalid form submission"
+//						
+//						}
 		
 	}
 	
