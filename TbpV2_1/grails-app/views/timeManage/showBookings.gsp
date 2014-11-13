@@ -14,7 +14,7 @@
 		${message(code: timeBudgetPlan-bookedTime)}
 	</h1>
 	<div>
-		<g:form method="post" action="showBookings">
+		<g:form useToken="true" method="post" action="showBookings">
 
 			<table>
 				<thead>
@@ -66,7 +66,6 @@
 									pattern="${~/\d\d\.\d\d\.\d\d\d\d/}" /></td>
 							<g:hiddenField name="id" value="${mapEntry.id}" />
 							<g:hiddenField name="isNew" value="${false}" />
-
 
 						</tr>
 					</g:each>

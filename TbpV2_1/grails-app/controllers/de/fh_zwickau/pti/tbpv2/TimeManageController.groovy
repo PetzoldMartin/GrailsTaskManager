@@ -56,8 +56,9 @@ class TimeManageController {
 	}
 	@Transactional
 	def updateBookings(){
-//				println params
+						println params
 //		println params.id.length
+						withForm {
 		for(int i=0;i<params.id.length; i++){
 			println i
 			
@@ -82,6 +83,9 @@ class TimeManageController {
 		}
 		
 		forward action: "showBookings" ,id: params.getAt("taskid")
+						}.invalidToken {
+						render "invalid form submission"
+						}
 		
 	}
 	
