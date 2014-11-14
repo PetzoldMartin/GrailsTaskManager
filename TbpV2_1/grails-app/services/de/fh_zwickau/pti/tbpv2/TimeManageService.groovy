@@ -7,9 +7,13 @@ import grails.validation.Validateable;
 @Transactional
 class TimeManageService {
 
-	TaskService taskService
+	def taskService
 
-
+	/**
+	 * Returns a map collection for show()
+	 * @param id Task id
+	 * @return map
+	 */
 	def getTask(int id) {
 
 		if (id == 0) {
@@ -25,6 +29,11 @@ class TimeManageService {
 		}
 	}
 
+	/**
+	 * Returns all subtasks for task
+	 * @param task
+	 * @return
+	 */
 	def getLeafs(Task task) {
 		def sub = []
 		if (task instanceof CompoundTask) {
@@ -35,6 +44,11 @@ class TimeManageService {
 		sub
 	}
 
+	/**
+	 * Returns a list from task to root 
+	 * @param task startpoint
+	 * @return list
+	 */
 	def getTraceRoute(Task task) {
 		def trace = []
 		def Task parent = task.superTask
@@ -47,6 +61,11 @@ class TimeManageService {
 		trace
 	}
 
+	/**
+	 * Returns a map with Task informations
+	 * @param task Task to get informations
+	 * @return map
+	 */
 	def getInfo(Task task) {
 		boolean comp = task instanceof CompoundTask
 		[name: task.name,
@@ -65,6 +84,7 @@ class TimeManageService {
 		def bookedTime=Task.findAllById(task.id)[0].getTimeBudgetUsed()
 		[bookings: bookings,taskid: taskid,timeBudgetPlan: timeBudgetPlan,bookedTime: bookedTime]
 	}
+	
 	def updateBookings(BookingCmd CMD) {
 		//println CMD.inspect()
 
