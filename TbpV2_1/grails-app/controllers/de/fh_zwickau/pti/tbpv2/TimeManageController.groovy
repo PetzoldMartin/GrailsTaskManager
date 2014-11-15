@@ -2,6 +2,7 @@ package de.fh_zwickau.pti.tbpv2
 
 import java.util.Date;
 
+import grails.plugin.springsecurity.annotation.Secured;
 import grails.transaction.Transactional;
 import grails.validation.Validateable;
 import groovy.json.internal.Sys;
@@ -12,7 +13,7 @@ import de.fh_zwickau.pti.tbpv2.TimePlanning
 
 import org.grails.databinding.BindUsing;
 import org.grails.databinding.BindingFormat;
-
+@Secured(['ROLE_ADMIN','ROLE_USER','ROLE_VIEW'])
 class TimeManageController {
 
 	static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -55,6 +56,7 @@ class TimeManageController {
 		}
 	}
 	@Transactional
+	@Secured(['ROLE_ADMIN','ROLE_USER'])
 	def updateBookings(){
 						println params
 //		println params.id.length

@@ -1,12 +1,14 @@
 package de.fh_zwickau.pti.tbpv2
 
 import org.grails.databinding.BindUsing;
+import grails.plugin.springsecurity.annotation.Secured;
 import org.grails.databinding.BindingFormat;
 
 import grails.transaction.Transactional;
 import grails.validation.Validateable;
 
 @Transactional(readOnly = true)
+@Secured(['ROLE_ADMIN','ROLE_USER','ROLE_VIEW'])
 class TaskPlanningController {
 
 	static defaultAction = "editTasks"
@@ -25,6 +27,7 @@ class TaskPlanningController {
 	}
 
 	@Transactional
+	@Secured(['ROLE_ADMIN','ROLE_USER'])
 	def updateTasks() {
  		println params
 		withForm {

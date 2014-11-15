@@ -126,9 +126,11 @@ grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'de.fh_zwickau.
 grails.plugin.springsecurity.authority.className = 'de.fh_zwickau.pti.tbpv2.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	'/':                              ['permitAll'],
-	'/index':                         ['permitAll'],
-	'/index.gsp':                     ['permitAll'],
+	'/index':                         ['isFullyAuthenticated()'],
+	'/index.gsp':                     ['isFullyAuthenticated()'],
 	'/assets/**':                     ['permitAll'],
+	'/login/**':                      ['permitAll'],
+	'/logout/**':                     ['permitAll'],
 	'/**/js/**':                      ['permitAll'],
 	'/**/css/**':                     ['permitAll'],
 	'/**/images/**':                  ['permitAll'],

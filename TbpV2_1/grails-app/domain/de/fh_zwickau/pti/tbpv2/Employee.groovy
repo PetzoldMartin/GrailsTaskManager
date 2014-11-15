@@ -1,6 +1,6 @@
 package de.fh_zwickau.pti.tbpv2
 
-class Employee {
+class Employee extends User {
 	String loginId
 	String passwordHash
     static constraints = {

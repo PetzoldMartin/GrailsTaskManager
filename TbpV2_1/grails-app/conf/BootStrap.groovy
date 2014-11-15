@@ -57,17 +57,31 @@ class BootStrap {
 			def prj2 = new CompoundTask(name: "Projekt2", description: "Top Level Projekt-Task, bitte editieren")
 			prj2.save flush: true
 
-			def testUser = new User(
-					username: 'me',
+			def adminUser = new User(
+					username: 'admin',
+					password: 'xx',
+					name: 'testadmin')
+			adminUser.save flush: true
+
+			def userUser = new User(
+					username: 'user',
 					password: 'xx',
 					name: 'testuser')
-			testUser.save flush: true
+			userUser.save flush: true
+
+			def viewUser = new User(
+					username: 'view',
+					password: 'xx',
+					name: 'testview')
+			viewUser.save flush: true
 
 			def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true) //project leader (admin)
 			def viewRole = new Role(authority: 'ROLE_VIEW').save(flush: true) //project spectator (boss)
 			def userRole = new Role(authority: 'ROLE_USER').save(flush: true) //project worker (user)
 
-			UserRole.create testUser, adminRole, true
+			UserRole.create adminUser, adminRole, true
+			UserRole.create userUser, userRole, true
+			UserRole.create viewUser, viewRole, true
 		}
 	}
 	def destroy = {

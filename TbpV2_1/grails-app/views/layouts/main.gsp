@@ -23,7 +23,11 @@
 			</a>
 		</div>
 		<g:layoutBody/>
-		<div class="footer" role="contentinfo"></div>
+		<div class="footer" role="contentinfo">
+			<form name="logout" method="POST" action="${createLink(controller:'logout') }">
+				<input class="delete" type="submit" value="logout">
+			</form>
+		</div>
 		<div id="spinner" class="spinner" style="display:none;">
 			<g:message code="spinner.alt" default="Loading&hellip;"/>
 		</div>
