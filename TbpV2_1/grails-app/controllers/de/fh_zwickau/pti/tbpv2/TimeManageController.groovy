@@ -58,11 +58,11 @@ class TimeManageController {
 	@Transactional
 	@Secured(['ROLE_ADMIN','ROLE_USER'])
 	def updateBookings(){
-						println params
+//						println params
 //		println params.id.length
 						withForm {
 		for(int i=0;i<params.id.length; i++){
-			println i
+//			println i
 			
 			def CMD=new BookingCmd(
 				bid: params.id[i].toInteger(),
