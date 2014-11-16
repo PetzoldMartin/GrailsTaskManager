@@ -8,7 +8,7 @@ import grails.validation.Validateable;
 class TimeManageService {
 
 	def taskService
-
+	def messageSource
 	/**
 	 * Returns a map collection for show()
 	 * @param id Task id
@@ -87,7 +87,7 @@ class TimeManageService {
 
 	def updateBookings(BookingCmd CMD) {
 		//println CMD.inspect()
-
+		
 		if(CMD.validate()){
 			if(CMD.isNew){
 				newBooking(CMD)
@@ -98,7 +98,12 @@ class TimeManageService {
 					changeBooking(CMD)
 				}}
 		}else {
-			CMD.errors.allErrors.each { println it }
+			CMD.errors.allErrors.each {
+				def locale = Locale.getDefault()
+				//log.error "Failed to Save Booking"
+				log.error messageSource.getMessage(it, locale)
+				
+			}
 		}
 	}
 
