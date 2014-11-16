@@ -52,7 +52,7 @@ class TimeManageService {
 	def getTraceRoute(Task task) {
 		def trace = []
 		def Task parent = task.superTask
-		
+
 		trace << [name: "root", id: 0]
 		while(parent != null){
 			trace << [name: parent.name, id: parent.id]
@@ -69,12 +69,12 @@ class TimeManageService {
 	def getInfo(Task task) {
 		boolean comp = task instanceof CompoundTask
 		[name: task.name,
-		 id: task.id,
-		 description: task.description,
-		 compound: comp,
-		 parent: task.superTask,
-		 planed: task.getTimeBudgetPlaned(),
-		 used: task.getTimeBudgetUsed()]
+			id: task.id,
+			description: task.description,
+			compound: comp,
+			parent: task.superTask,
+			planed: task.getTimeBudgetPlaned(),
+			used: task.getTimeBudgetUsed()]
 	}
 
 	def getBookingsByTask(Task task) {
@@ -84,22 +84,24 @@ class TimeManageService {
 		def bookedTime=Task.findAllById(task.id)[0].getTimeBudgetUsed()
 		[bookings: bookings,taskid: taskid,timeBudgetPlan: timeBudgetPlan,bookedTime: bookedTime]
 	}
-	
+
 	def updateBookings(BookingCmd CMD) {
 		//println CMD.inspect()
 
 		if(CMD.validate()){
 			if(CMD.isNew){
 				newBooking(CMD)
-		}else{
-			if(CMD.toDelete){
-				deleteBooking(CMD)
-		}else{
-		changeBooking(CMD)
-		}}
+			}else{
+				if(CMD.toDelete){
+					deleteBooking(CMD)
+				}else{
+					changeBooking(CMD)
+				}}
+		}else {
+			CMD.errors.allErrors.each { println it }
 		}
 	}
-		
+
 	def newBooking(BookingCmd CMD) {
 		def booking = new Booking(amount: CMD.amount,
 		start: CMD.start,
@@ -110,7 +112,7 @@ class TimeManageService {
 
 		booking.save flush: booking.validate()
 	}
-	
+
 	def deleteBooking(BookingCmd CMD){
 		def booking=Booking.findAllById(CMD.bid)[0]
 		println "\ndeleteBocking " + booking.inspect()
@@ -121,23 +123,23 @@ class TimeManageService {
 		Task.findAllById(CMD.taskid)[0].removeFromBookings booking
 		booking.delete flush:true
 	}
-	
+
 	def changeBooking(BookingCmd CMD){
 		def booking=Booking.findAllById(CMD.bid)[0]
-		
+
 		//println "\nchange " + booking.inspect()
 		//println "\nchange " + CMD.inspect()
-		
+
 		if(booking.amount!=CMD.amount|
-			booking.start!=CMD.start|
-			booking.end!=CMD.end){
+		booking.start!=CMD.start|
+		booking.end!=CMD.end){
 			booking.amount=CMD.amount
 			booking.start=CMD.start
 			booking.end=CMD.end
 			booking.save flush:true
 			//println "changes"
 		}
-		
+
 	}
 
 	protected void notFound() {
