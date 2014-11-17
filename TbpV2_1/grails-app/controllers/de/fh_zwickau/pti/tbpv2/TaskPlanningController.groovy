@@ -27,7 +27,7 @@ class TaskPlanningController {
 	}
 
 	@Transactional
-	@Secured(['ROLE_ADMIN','ROLE_USER'])
+	@Secured(['ROLE_ADMIN'])
 	def updateTasks() {
  		println params
 		withForm {

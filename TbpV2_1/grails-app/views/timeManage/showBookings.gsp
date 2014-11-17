@@ -79,7 +79,7 @@
 				</tbody>
 
 			</table>
-
+			<sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_USER">
 			<fieldset class="buttons">
 				<g:actionSubmit class="return" action="show"
 					value="${message(code: 'default.button.return.label', default: 'back to Projekt')}" />
@@ -89,7 +89,7 @@
 				<g:actionSubmit class="save" action="updateBookings"
 					value="${message(code: 'default.button.save.label', default: 'Update Bookings')}" />
 			</fieldset>
-
+			</sec:ifAnyGranted>
 
 		</g:form>
 
