@@ -34,7 +34,7 @@ class TimeManageService {
 	 * @param task
 	 * @return
 	 */
-	def getLeafs(Task task) {
+	def private getLeafs(Task task) {
 		def sub = []
 		if (task instanceof CompoundTask) {
 			for (leaf in task.subtasks) {
@@ -49,7 +49,7 @@ class TimeManageService {
 	 * @param task startpoint
 	 * @return list
 	 */
-	def getTraceRoute(Task task) {
+	def private getTraceRoute(Task task) {
 		def trace = []
 		def Task parent = task.superTask
 
@@ -66,7 +66,7 @@ class TimeManageService {
 	 * @param task Task to get informations
 	 * @return map
 	 */
-	def getInfo(Task task) {
+	def private getInfo(Task task) {
 		boolean comp = task instanceof CompoundTask
 		[name: task.name,
 			id: task.id,
@@ -107,7 +107,7 @@ class TimeManageService {
 		}
 	}
 
-	def newBooking(BookingCmd CMD) {
+	def private newBooking(BookingCmd CMD) {
 		def booking = new Booking(amount: CMD.amount,
 		start: CMD.start,
 		end: CMD.end
@@ -118,7 +118,7 @@ class TimeManageService {
 		booking.save flush: booking.validate()
 	}
 
-	def deleteBooking(BookingCmd CMD){
+	def private deleteBooking(BookingCmd CMD){
 		def booking=Booking.findAllById(CMD.bid)[0]
 		println "\ndeleteBocking " + booking.inspect()
 		if (booking == null) {
@@ -129,7 +129,7 @@ class TimeManageService {
 		booking.delete flush:true
 	}
 
-	def changeBooking(BookingCmd CMD){
+	def private changeBooking(BookingCmd CMD){
 		def booking=Booking.findAllById(CMD.bid)[0]
 
 		//println "\nchange " + booking.inspect()

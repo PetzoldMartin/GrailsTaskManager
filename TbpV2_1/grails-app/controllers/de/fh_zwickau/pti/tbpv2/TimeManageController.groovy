@@ -23,10 +23,10 @@ class TimeManageController {
 	def timeManageService
 
 	
-    def index() {
-		def mymap = taskPlanningService.getTaskInfos()
-		[myMapNameInGSP:mymap]
-	}
+    //def index() {
+	//	def mymap = taskPlanningService.getTaskInfos()
+	//	[myMapNameInGSP:mymap]
+	//}
 	
 	/**
 	 * Show the contents of a Task
