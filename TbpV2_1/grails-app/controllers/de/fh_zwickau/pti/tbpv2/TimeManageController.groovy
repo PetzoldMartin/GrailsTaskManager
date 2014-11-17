@@ -34,8 +34,8 @@ class TimeManageController {
 	 * @return internal content
 	 */
 	def show(int id) {
-		def mymap = timeManageService.getTask(id)
-		[map:mymap]
+		def mymap = timeManageService.getTask(id) // Querry im service
+ 		[map:mymap]
 	}
 	
 	/**
