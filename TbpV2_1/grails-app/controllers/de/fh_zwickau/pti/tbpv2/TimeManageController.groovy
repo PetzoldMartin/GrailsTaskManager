@@ -61,7 +61,7 @@ class TimeManageController {
 //						println params
 //		println params.id.length
 						withForm {
-		for(int i=0;i<params.id.length; i++){
+		for(int i=0;i<params.id.length-1; i++){
 //			println i
 			
 			def CMD=new BookingCmd(
