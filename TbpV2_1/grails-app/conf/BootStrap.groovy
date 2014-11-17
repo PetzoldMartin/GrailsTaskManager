@@ -74,7 +74,9 @@ class BootStrap {
 					password: 'xx',
 					name: 'testview')
 			viewUser.save flush: true
-
+			
+			
+			// create std test user
 			def adminRole = new Role(authority: 'ROLE_ADMIN').save(flush: true) //project leader (admin)
 			def viewRole = new Role(authority: 'ROLE_VIEW').save(flush: true) //project spectator (boss)
 			def userRole = new Role(authority: 'ROLE_USER').save(flush: true) //project worker (user)
