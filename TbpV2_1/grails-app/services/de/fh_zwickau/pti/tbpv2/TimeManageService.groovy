@@ -77,6 +77,11 @@ class TimeManageService {
 			used: task.getTimeBudgetUsed()]
 	}
 
+	/**
+	 * get all bookings who belongs to a task
+	 * @param task for the bookings
+	 * @return bookings, Taskid of the belonging task and his time-planning and already booked(time hours
+	 */
 	def getBookingsByTask(Task task) {
 		def bookings=Booking.findAllByTask(task);
 		def taskid=task.id
@@ -85,6 +90,11 @@ class TimeManageService {
 		[bookings: bookings,taskid: taskid,timeBudgetPlan: timeBudgetPlan,bookedTime: bookedTime]
 	}
 
+	/**
+	 * Gets a booking cmd and decide if it is to update,delete or create
+	 * @param CMD
+	 * @return
+	 */
 	def updateBookings(BookingCmd CMD) {
 		//println CMD.inspect()
 		
@@ -107,6 +117,11 @@ class TimeManageService {
 		}
 	}
 
+	/**
+	 * makes a new booking out of a booking cmd
+	 * @param CMD
+	 * @return
+	 */
 	def private newBooking(BookingCmd CMD) {
 		def booking = new Booking(amount: CMD.amount,
 		start: CMD.start,
@@ -118,6 +133,11 @@ class TimeManageService {
 		booking.save flush: booking.validate()
 	}
 
+	/**
+	 * deletes a booking out of a booking cmd
+	 * @param CMD
+	 * @return
+	 */
 	def private deleteBooking(BookingCmd CMD){
 		def booking=Booking.findAllById(CMD.bid)[0]
 		println "\ndeleteBocking " + booking.inspect()
@@ -129,6 +149,11 @@ class TimeManageService {
 		booking.delete flush:true
 	}
 
+	/**
+	 * updates a booking out of a booking cmd
+	 * @param CMD
+	 * @return
+	 */
 	def private changeBooking(BookingCmd CMD){
 		def booking=Booking.findAllById(CMD.bid)[0]
 

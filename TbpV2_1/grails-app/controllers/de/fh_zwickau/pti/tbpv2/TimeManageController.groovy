@@ -47,6 +47,11 @@ class TimeManageController {
 		redirect(action: "show", id: Task.findById(id).superTask.id)
 	}
 	
+	/**
+	 * shows all bookings who belongs to a task serched by id
+	 * @param id the id of the task
+	 * @return service return
+	 */
 	def showBookings(int id){
 		Task task=Task.findAllById(id)[0]
 		if(task instanceof SubTask){
@@ -55,6 +60,10 @@ class TimeManageController {
 			forward action: "show"
 		}
 	}
+	/**
+	 * use the params of the showbookings gsp to make bookingCMDS
+	 * @return redirect to showbookings
+	 */
 	@Transactional
 	@Secured(['ROLE_ADMIN','ROLE_USER'])
 	def updateBookings(){
@@ -92,7 +101,11 @@ class TimeManageController {
 		
 	}
 	
-	
+	/**
+	 * The BookingCMD for update, create and delte bookings 
+	 * @author Aismael
+	 *
+	 */
 	@Validateable
 	class BookingCmd {
 		int taskid
